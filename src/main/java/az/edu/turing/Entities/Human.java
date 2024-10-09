@@ -1,7 +1,5 @@
 package az.edu.turing.Entities;
 
-import java.util.Arrays;
-
 public class Human {
 
     private String name;
