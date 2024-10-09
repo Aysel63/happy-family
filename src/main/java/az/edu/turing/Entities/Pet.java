@@ -1,4 +1,4 @@
-package az.edu.turing;
+package az.edu.turing.Entities;
 
 public class Pet {
     private String species;
