@@ -1,6 +1,7 @@
 package az.edu.turing.Entities;
 
 public class Pet {
+
     private String species;
     private String nickname;
     private int age;
@@ -24,16 +25,16 @@ public class Pet {
     }
 
 
-    public void eat() {
-        System.out.println("I am eating");
+    public String eat() {
+        return "I am eating";
     }
 
-    public void respond() {
-        System.out.println("Hello, owner. I am - " + nickname + ". I miss you!");
+    public String respond() {
+        return "Hello, owner. I am - " + nickname + ". I miss you!";
     }
 
-    public void foul() {
-        System.out.println("I need to cover it up");
+    public String foul() {
+        return "I need to cover it up";
     }
 
     @Override
