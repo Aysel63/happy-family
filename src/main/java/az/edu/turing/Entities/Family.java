@@ -18,19 +18,20 @@ public class Family {
 
     public void addChild(Human child) {
         children = Arrays.copyOf(children, children.length + 1);
+        child.setFamily(this);
         children[children.length - 1] = child;
-
     }
 
     public boolean deleteChild(int index) {
         if (index < 0 || index >= children.length) {
             return false;
         }
+        Human child = children[index];
+        child.setFamily(null);
         for (int i = index; i < children.length - 1; i++) {
             children[i] = children[i + 1];
         }
         children = Arrays.copyOf(children, children.length - 1);
-
         return true;
     }
 
