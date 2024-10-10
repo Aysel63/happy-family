@@ -24,6 +24,12 @@ public class Family {
         this.children = new Human[]{};
     }
 
+    public Family(Human mother, Human father, Pet pet) {
+        this.mother = mother;
+        this.father = father;
+        this.pet = pet;
+    }
+
     public void addChild(Human child) {
         children = Arrays.copyOf(children, children.length + 1);
         child.setFamily(this);
@@ -44,17 +50,12 @@ public class Family {
     }
 
     public boolean deleteChild(Human child) {
-        int index = -1;
         for (int i = 0; i < children.length; i++) {
             if (children[i].equals(child)) {
-                index = i;
-                break;
+                return deleteChild(i);
             }
         }
-        if (index == -1) {
-            return false;
-        }
-        return deleteChild(index);
+        return false;
     }
 
     public int countFamily() {
@@ -115,4 +116,11 @@ public class Family {
                 ", pet=" + pet +
                 '}';
     }
+
+    @Override
+    protected void finalize() throws Throwable {
+        System.out.println("Family object is being removed: " + this);
+        super.finalize();
+    }
+
 }
