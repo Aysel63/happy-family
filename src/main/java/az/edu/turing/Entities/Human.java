@@ -91,12 +91,12 @@ public class Human {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         Human human = (Human) object;
-        return year == human.year && Objects.equals(name, human.name) && Objects.equals(surname, human.surname);
+        return year == human.year && Objects.equals(name, human.name) && Objects.equals(surname, human.surname) && Objects.equals(family, human.family);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, surname, year);
+        return Objects.hash(name, surname, year, family);
     }
 
     @Override

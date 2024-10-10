@@ -1,5 +1,8 @@
 package az.edu.turing.Entities;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 public class Pet {
 
     private String species;
@@ -35,6 +38,19 @@ public class Pet {
 
     public String foul() {
         return "I need to cover it up";
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Pet pet = (Pet) object;
+        return age == pet.age && trickLevel == pet.trickLevel && Objects.equals(species, pet.species) && Objects.equals(nickname, pet.nickname) && Objects.deepEquals(habits, pet.habits);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(species, nickname, age, trickLevel, Arrays.hashCode(habits));
     }
 
     @Override
