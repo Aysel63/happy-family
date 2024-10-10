@@ -1,18 +1,17 @@
 package az.edu.turing.Entities;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 public class Human {
 
     private String name;
     private String surname;
     private int year;
     private int iq;
-    private Pet pet;
-    private Human mother;
-    private Human father;
     private String[][] schedule;
+    private Family family;
 
-    public Human() {
-    }
 
     public Human(String name, String surname, int year) {
         this.name = name;
@@ -20,46 +19,24 @@ public class Human {
         this.year = year;
     }
 
-    public Human(String name, String surname, int year, Human mother, Human father) {
-        this.name = name;
-        this.surname = surname;
-        this.year = year;
-        this.mother = mother;
-        this.father = father;
-    }
-
-    public Human(String name, String surname, int year, int iq, Pet pet, Human mother, Human father, String[][] schedule) {
+    public Human(String name, String surname, int year, int iq, String[][] schedule, Family family) {
         this.name = name;
         this.surname = surname;
         this.year = year;
         this.iq = iq;
-        this.pet = pet;
-        this.mother = mother;
-        this.father = father;
         this.schedule = schedule;
+        this.family = family;
     }
 
     public String greetPet() {
-        return "Hello" + pet.getNickname();
+        return "Hello, " + family.getPet().getNickname();
     }
 
     public String describePet() {
-        String slyLevel = pet.getTrickLevel() >= 50 ? "very sly" : "almost not sly";
-        return String.format("I have an %s is %d years old, he is %s.", pet.getSpecies(), pet.getAge(), slyLevel);
+        String slyLevel = family.getPet().getTrickLevel() > 50 ? "very sly" : "almost not sly";
+        return String.format("I have a %s, it is %d years old, and it is %s.", family.getPet().getSpecies(), family.getPet().getAge(), slyLevel);
     }
 
-    @Override
-    public String toString() {
-        return "Human{" +
-                "name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", year=" + year +
-                ", iq=" + iq +
-                ", mother=" + mother.getName() + " " + mother.getSurname() +
-                ", father=" + father.getName() + " " + father.getSurname() +
-                ", pet=" + pet +
-                '}';
-    }
 
     public String getName() {
         return name;
@@ -93,30 +70,6 @@ public class Human {
         this.iq = iq;
     }
 
-    public Pet getPet() {
-        return pet;
-    }
-
-    public void setPet(Pet pet) {
-        this.pet = pet;
-    }
-
-    public Human getMother() {
-        return mother;
-    }
-
-    public void setMother(Human mother) {
-        this.mother = mother;
-    }
-
-    public Human getFather() {
-        return father;
-    }
-
-    public void setFather(Human father) {
-        this.father = father;
-    }
-
     public String[][] getSchedule() {
         return schedule;
     }
@@ -124,4 +77,37 @@ public class Human {
     public void setSchedule(String[][] schedule) {
         this.schedule = schedule;
     }
+
+    public Family getFamily() {
+        return family;
+    }
+
+    public void setFamily(Family family) {
+        this.family = family;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Human human = (Human) object;
+        return year == human.year && Objects.equals(name, human.name) && Objects.equals(surname, human.surname) && Objects.equals(family, human.family);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, surname, year, family);
+    }
+
+    @Override
+    public String toString() {
+        return "Human{" +
+                "name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", year=" + year +
+                ", iq=" + iq +
+                ", schedule=" + Arrays.deepToString(schedule) +
+                '}';
+    }
 }
+
