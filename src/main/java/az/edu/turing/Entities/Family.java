@@ -88,8 +88,22 @@ public class Family {
         return "Family{" +
                 "mother=" + mother.getName() + " " + mother.getSurname() +
                 ", father=" + father.getName() + " " + father.getSurname() +
-                ", children=" + Arrays.toString(children) +
+                ", children=" + childrenToString() +
                 ", pet=" + pet +
                 '}';
+    }
+
+    private String childrenToString() {
+        StringBuilder childrenString = new StringBuilder();
+        for (Human child : children) {
+            childrenString.append("Human{" +
+                    "name='" + child.getName() + '\'' +
+                    ", surname='" + child.getSurname() + '\'' +
+                    ", year=" + child.getYear() +
+                    ", iq=" + child.getIq() +
+                    "}, ");
+        }
+        childrenString.delete(childrenString.length() - 2, childrenString.length());
+        return "[" + childrenString + "]";
     }
 }
