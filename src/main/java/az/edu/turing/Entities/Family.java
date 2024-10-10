@@ -10,6 +10,14 @@ public class Family {
     private Human[] children;
     private Pet pet;
 
+    static {
+        System.out.println("Family class is being loaded");
+    }
+
+    {
+        System.out.println("A new family object is being created");
+    }
+
     public Family(Human mother, Human father) {
         this.mother = mother;
         this.father = father;
@@ -33,6 +41,20 @@ public class Family {
         }
         children = Arrays.copyOf(children, children.length - 1);
         return true;
+    }
+
+    public boolean deleteChild(Human child) {
+        int index = -1;
+        for (int i = 0; i < children.length; i++) {
+            if (children[i].equals(child)) {
+                index = i;
+                break;
+            }
+        }
+        if (index == -1) {
+            return false;
+        }
+        return deleteChild(index);
     }
 
     public int countFamily() {
