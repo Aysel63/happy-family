@@ -24,6 +24,12 @@ public class Family {
         this.children = new Human[]{};
     }
 
+    public Family(Pet pet, Human mother, Human father) {
+        this.pet = pet;
+        this.mother = mother;
+        this.father = father;
+    }
+
     public void addChild(Human child) {
         children = Arrays.copyOf(children, children.length + 1);
         child.setFamily(this);
@@ -44,17 +50,12 @@ public class Family {
     }
 
     public boolean deleteChild(Human child) {
-        int index = -1;
         for (int i = 0; i < children.length; i++) {
             if (children[i].equals(child)) {
-                index = i;
-                break;
+                return deleteChild(i);
             }
         }
-        if (index == -1) {
-            return false;
-        }
-        return deleteChild(index);
+        return false;
     }
 
     public int countFamily() {
@@ -112,7 +113,7 @@ public class Family {
                 "mother=" + mother +
                 ", father=" + father +
                 ", children=" + Arrays.toString(children) +
-                ", pet=" + pet +
+                ", pet=" + (pet!=null ? pet:"No pet") +
                 '}';
     }
 }
