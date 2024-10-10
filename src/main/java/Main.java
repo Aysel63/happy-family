@@ -1,4 +1,5 @@
-package az.edu.turing.Entities;
+import az.edu.turing.Entities.Human;
+import az.edu.turing.Entities.Pet;
 
 public class Main {
     public static void main(String[] args) {
