@@ -1,8 +1,11 @@
 package az.edu.turing.Entities;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 public class Pet {
 
-    private String species;
+    private Species species;
     private String nickname;
     private int age;
     private int trickLevel;
@@ -11,12 +14,12 @@ public class Pet {
     public Pet() {
     }
 
-    public Pet(String species, String nickname) {
+    public Pet(Species species, String nickname) {
         this.species = species;
         this.nickname = nickname;
     }
 
-    public Pet(String species, String nickname, int age, int trickLevel, String[] habits) {
+    public Pet(Species species, String nickname, int age, int trickLevel, String[] habits) {
         this.species = species;
         this.nickname = nickname;
         this.age = age;
@@ -38,6 +41,19 @@ public class Pet {
     }
 
     @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Pet pet = (Pet) object;
+        return age == pet.age && trickLevel == pet.trickLevel && species == pet.species && Objects.equals(nickname, pet.nickname) && Objects.deepEquals(habits, pet.habits);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(species, nickname, age, trickLevel, Arrays.hashCode(habits));
+    }
+
+    @Override
     public String toString() {
         return species + "{" +
                 "nickname='" + nickname + '\'' +
@@ -47,11 +63,11 @@ public class Pet {
                 '}';
     }
 
-    public String getSpecies() {
+    public Species getSpecies() {
         return species;
     }
 
-    public void setSpecies(String species) {
+    public void setSpecies(Species species) {
         this.species = species;
     }
 
