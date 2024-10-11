@@ -18,9 +18,9 @@ public class Family {
         System.out.println("A new family object is being created");
     }
 
-    public Family(Human mother, Human father) {
-        this.mother = mother;
+    public Family(Human father, Human mother) {
         this.father = father;
+        this.mother = mother;
         this.children = new Human[]{};
     }
 
