@@ -120,7 +120,7 @@ public class Family {
     @Override
     protected void finalize() throws Throwable {
         System.out.println("Family object is being removed: " + this);
-        super.finalize();
+
     }
 
 }

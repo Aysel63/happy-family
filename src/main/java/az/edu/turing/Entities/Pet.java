@@ -66,7 +66,7 @@ public class Pet {
     @Override
     protected void finalize() throws Throwable {
         System.out.println("Pet object is being removed: " + this.getNickname());
-        super.finalize();
+
     }
 
 
