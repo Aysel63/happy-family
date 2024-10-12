@@ -59,7 +59,7 @@ public class Pet {
                 "nickname='" + nickname + '\'' +
                 ", age=" + age +
                 ", trickLevel=" + trickLevel +
-                ", habits=" + String.join(", ", habits) +
+                ", habits=" + (habits != null ? String.join(", ", habits) : "no habits") +
                 '}';
     }
 
