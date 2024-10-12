@@ -3,7 +3,7 @@ package az.edu.turing.Entities;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class Pet {
+public abstract class Pet {
 
     private Species species;
     private String nickname;
@@ -32,13 +32,8 @@ public class Pet {
         return "I am eating";
     }
 
-    public String respond() {
-        return "Hello, owner. I am - " + nickname + ". I miss you!";
-    }
+    public abstract String respond();
 
-    public String foul() {
-        return "I need to cover it up";
-    }
 
     @Override
     public boolean equals(Object object) {

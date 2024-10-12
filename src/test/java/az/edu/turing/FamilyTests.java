@@ -23,8 +23,6 @@ public class FamilyTests {
         child = new Human("Tom", "Johnson", 2005);
         family = new Family(father, mother);
         family.addChild(child);
-        Pet pet = new Pet(Species.DOG, "Buddy");
-        family.setPet(pet);
     }
 
     @Test
