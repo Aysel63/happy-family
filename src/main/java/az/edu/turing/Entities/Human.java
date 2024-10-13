@@ -30,21 +30,18 @@ public class Human {
     }
 
     public String greetPet() {
-        Set<Pet> pets = family.getPet();
+        Set<Pet> pets = family.getPets();
         StringBuilder result = new StringBuilder();
         for (Pet pet : pets) {
             result.append(pet.getNickname()).append(", ");
-        }
-        if (result.length() > 2) {
             result.delete(result.length() - 2, result.length());
         }
-
         return "Hello, " + result;
     }
 
     public String describePet() {
         StringBuilder result = new StringBuilder();
-        for (Pet pet : family.getPet()) {
+        for (Pet pet : family.getPets()) {
             String slyLevel = pet.getTrickLevel() > 50 ? "very sly" : "almost not sly";
             result.append(String.format("I have a %s, it is %d years old, and it is %s.\n",
                     pet.getSpecies(), pet.getAge(), slyLevel));
