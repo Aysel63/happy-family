@@ -83,11 +83,11 @@ public class Family implements HumanCreator {
         this.children = children;
     }
 
-    public Set<Pet> getPet() {
+    public Set<Pet> getPets() {
         return pets;
     }
 
-    public void setPet(Set<Pet> pets) {
+    public void setPets(Set<Pet> pets) {
         this.pets = pets;
     }
 
