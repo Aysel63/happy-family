@@ -6,11 +6,11 @@ import java.util.Set;
 
 public abstract class Pet {
 
-    private Species species;
-    private String nickname;
-    private int age;
-    private int trickLevel;
-    private Set<String> habits;
+    protected Species species;
+    protected String nickname;
+    protected int age;
+    protected int trickLevel;
+   protected Set<String> habits;
 
    protected  Pet() {
     }
