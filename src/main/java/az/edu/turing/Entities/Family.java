@@ -2,8 +2,9 @@ package az.edu.turing.Entities;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Random;
 
-public class Family {
+public class Family implements HumanCreator {
 
     private Human mother;
     private Human father;
@@ -18,9 +19,12 @@ public class Family {
         System.out.println("A new family object is being created");
     }
 
-    public Family(Human mother, Human father) {
-        this.mother = mother;
+    public Family() {
+    }
+
+    public Family(Human father, Human mother) {
         this.father = father;
+        this.mother = mother;
         this.children = new Human[]{};
     }
 
@@ -115,5 +119,28 @@ public class Family {
                 ", children=" + Arrays.toString(children) +
                 ", pet=" + pet +
                 '}';
+    }
+
+    @Override
+    public Human bornChild() {
+        Random random = new Random();
+
+        boolean isBoy = random.nextBoolean();
+
+        String[] boyNames = {"Muhammed", "Adil", "Elshan"};
+        String[] girlNames = {"Aysel", "Sevda", "Fidan"};
+        String name = isBoy ? boyNames[random.nextInt(boyNames.length)] : girlNames[random.nextInt(girlNames.length)];
+
+        int averageIq = (mother.getIq() + father.getIq()) / 2;
+
+        Human child;
+        if (isBoy) {
+            child = new Man(name, father.getName(), 2024, averageIq, null, this);
+        } else {
+            child = new Woman(name, father.getName(), 2024, averageIq, null, this);
+        }
+
+        addChild(child);
+        return child;
     }
 }

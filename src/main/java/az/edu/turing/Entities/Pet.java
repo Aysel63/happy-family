@@ -3,7 +3,7 @@ package az.edu.turing.Entities;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class Pet {
+public abstract class Pet {
 
     private Species species;
     private String nickname;
@@ -11,15 +11,15 @@ public class Pet {
     private int trickLevel;
     private String[] habits;
 
-    public Pet() {
+   protected  Pet() {
     }
 
-    public Pet(Species species, String nickname) {
+    protected Pet(Species species, String nickname) {
         this.species = species;
         this.nickname = nickname;
     }
 
-    public Pet(Species species, String nickname, int age, int trickLevel, String[] habits) {
+    protected Pet(Species species, String nickname, int age, int trickLevel, String[] habits) {
         this.species = species;
         this.nickname = nickname;
         this.age = age;
@@ -32,20 +32,16 @@ public class Pet {
         return "I am eating";
     }
 
-    public String respond() {
-        return "Hello, owner. I am - " + nickname + ". I miss you!";
-    }
+    public abstract String respond();
 
-    public String foul() {
-        return "I need to cover it up";
-    }
 
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         Pet pet = (Pet) object;
-        return age == pet.age && trickLevel == pet.trickLevel && species == pet.species && Objects.equals(nickname, pet.nickname) && Objects.deepEquals(habits, pet.habits);
+        return age == pet.age && trickLevel == pet.trickLevel && species == pet.species &&
+                Objects.equals(nickname, pet.nickname) && Objects.deepEquals(habits, pet.habits);
     }
 
     @Override
@@ -59,7 +55,7 @@ public class Pet {
                 "nickname='" + nickname + '\'' +
                 ", age=" + age +
                 ", trickLevel=" + trickLevel +
-                ", habits=" + String.join(", ", habits) +
+                ", habits=" + (habits != null ? String.join(", ", habits) : "no habits") +
                 '}';
     }
 
