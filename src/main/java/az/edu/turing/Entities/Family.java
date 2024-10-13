@@ -10,7 +10,7 @@ public class Family implements HumanCreator {
     private Human mother;
     private Human father;
     private List<Human> children;
-    private Pet pet;
+    private Set<Pet> pets;
 
     static {
         System.out.println("Family class is being loaded");
@@ -83,12 +83,12 @@ public class Family implements HumanCreator {
         this.children = children;
     }
 
-    public Pet getPet() {
-        return pet;
+    public Set<Pet> getPet() {
+        return pets;
     }
 
-    public void setPet(Pet pet) {
-        this.pet = pet;
+    public void setPet(Set<Pet> pets) {
+        this.pets = pets;
     }
 
     @Override

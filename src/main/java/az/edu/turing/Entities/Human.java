@@ -3,6 +3,7 @@ package az.edu.turing.Entities;
 import java.util.Objects;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 public class Human {
 
@@ -30,12 +31,26 @@ public class Human {
     }
 
     public String greetPet() {
-        return "Hello, " + family.getPet().getNickname();
+        Set<Pet> pets = family.getPet();
+        StringBuilder result = new StringBuilder();
+        for (Pet pet : pets) {
+            result.append(pet.getNickname()).append(", ");
+        }
+        if (result.length() > 2) {
+            result.delete(result.length() - 2, result.length());
+        }
+
+        return "Hello, " + result;
     }
 
     public String describePet() {
-        String slyLevel = family.getPet().getTrickLevel() > 50 ? "very sly" : "almost not sly";
-        return String.format("I have a %s, it is %d years old, and it is %s.", family.getPet().getSpecies(), family.getPet().getAge(), slyLevel);
+        StringBuilder result = new StringBuilder();
+        for (Pet pet : family.getPet()) {
+            String slyLevel = pet.getTrickLevel() > 50 ? "very sly" : "almost not sly";
+            result.append(String.format("I have a %s, it is %d years old, and it is %s.\n",
+                    pet.getSpecies(), pet.getAge(), slyLevel));
+        }
+        return result.toString().trim();
     }
 
 
