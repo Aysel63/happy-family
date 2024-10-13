@@ -29,8 +29,8 @@ public class Family implements HumanCreator {
         this.children = new ArrayList<>();
     }
 
-    public Family(Pet pet, Human mother, Human father) {
-        this.pet = pet;
+    public Family(Set<Pet> pets, Human mother, Human father) {
+        this.pets = pets != null ? pets : new HashSet<>();
         this.mother = mother;
         this.father = father;
     }
