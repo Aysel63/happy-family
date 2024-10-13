@@ -7,7 +7,7 @@ public class Man extends Human {
     }
 
     public Man(String name, String surname, int year, int iq, String[][] schedule, Family family) {
-        super(name, surname, year, iq, schedule, family);
+        super(name, surname, year, iq, schedule ,family);
     }
 
     @Override

@@ -11,15 +11,15 @@ public abstract class Pet {
     private int trickLevel;
     private String[] habits;
 
-    public Pet() {
+   protected  Pet() {
     }
 
-    public Pet(Species species, String nickname) {
+    protected Pet(Species species, String nickname) {
         this.species = species;
         this.nickname = nickname;
     }
 
-    public Pet(Species species, String nickname, int age, int trickLevel, String[] habits) {
+    protected Pet(Species species, String nickname, int age, int trickLevel, String[] habits) {
         this.species = species;
         this.nickname = nickname;
         this.age = age;
@@ -40,7 +40,8 @@ public abstract class Pet {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         Pet pet = (Pet) object;
-        return age == pet.age && trickLevel == pet.trickLevel && species == pet.species && Objects.equals(nickname, pet.nickname) && Objects.deepEquals(habits, pet.habits);
+        return age == pet.age && trickLevel == pet.trickLevel && species == pet.species &&
+                Objects.equals(nickname, pet.nickname) && Objects.deepEquals(habits, pet.habits);
     }
 
     @Override

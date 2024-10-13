@@ -1,6 +1,7 @@
 package az.edu.turing.Entities;
 
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Objects;
 
 public class Human {
@@ -9,7 +10,7 @@ public class Human {
     private String surname;
     private int year;
     private int iq;
-    private String[][] schedule;
+    private String [][] schedule;
     private Family family;
 
 
@@ -70,11 +71,11 @@ public class Human {
         this.iq = iq;
     }
 
-    public String[][] getSchedule() {
+    public  String[][] getSchedule() {
         return schedule;
     }
 
-    public void setSchedule(String[][] schedule) {
+    public void setSchedule (String[][] schedule) {
         this.schedule = schedule;
     }
 

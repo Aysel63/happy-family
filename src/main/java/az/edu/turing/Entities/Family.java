@@ -19,6 +19,9 @@ public class Family implements HumanCreator {
         System.out.println("A new family object is being created");
     }
 
+    public Family() {
+    }
+
     public Family(Human father, Human mother) {
         this.father = father;
         this.mother = mother;

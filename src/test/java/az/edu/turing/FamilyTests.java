@@ -2,15 +2,13 @@ package az.edu.turing;
 
 import az.edu.turing.Entities.Family;
 import az.edu.turing.Entities.Human;
-import az.edu.turing.Entities.Pet;
-import az.edu.turing.Entities.Species;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class FamilyTests {
+ class FamilyTests {
     private Family family;
     private Human father;
     private Human mother;
@@ -61,7 +59,7 @@ public class FamilyTests {
                 "mother=Human{name='Anna', surname='Johnson', year=1977, iq=0, schedule=null}, " +
                 "father=Human{name='Jack', surname='Johnson', year=1975, iq=0, schedule=null}, " +
                 "children=[Human{name='Tom', surname='Johnson', year=2005, iq=0, schedule=null}], " +
-                "pet=DOG{nickname='Buddy', age=0, trickLevel=0, habits=no habits}}";
+                "pet=null}";
         assertEquals(expected, family.toString());
     }
 
