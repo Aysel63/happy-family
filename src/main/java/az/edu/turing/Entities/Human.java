@@ -1,6 +1,8 @@
 package az.edu.turing.Entities;
 
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Human {
@@ -9,7 +11,7 @@ public class Human {
     private String surname;
     private int year;
     private int iq;
-    private String[][] schedule;
+    private Map<DayOfWeek, String> schedule;
     private Family family;
 
 
@@ -19,7 +21,7 @@ public class Human {
         this.year = year;
     }
 
-    public Human(String name, String surname, int year, int iq, String[][] schedule, Family family) {
+    public Human(String name, String surname, int year, int iq, Map<DayOfWeek, String> schedule, Family family) {
         this.name = name;
         this.surname = surname;
         this.year = year;
@@ -77,11 +79,11 @@ public class Human {
         this.iq = iq;
     }
 
-    public String[][] getSchedule() {
+    public Map<DayOfWeek, String> getSchedule() {
         return schedule;
     }
 
-    public void setSchedule(String[][] schedule) {
+    public void setSchedule(Map<DayOfWeek, String> schedule) {
         this.schedule = schedule;
     }
 
@@ -113,7 +115,7 @@ public class Human {
                 ", surname='" + surname + '\'' +
                 ", year=" + year +
                 ", iq=" + iq +
-                ", schedule=" + (schedule != null ? Arrays.deepToString(schedule) : "null") +
+                ", schedule=" + (schedule != null ? schedule.toString() : "null") +
                 '}';
     }
 }
