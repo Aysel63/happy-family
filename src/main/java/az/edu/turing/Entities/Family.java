@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
+import java.util.Set;
 
 public class Family implements HumanCreator {
 
@@ -26,6 +27,10 @@ public class Family implements HumanCreator {
     public Family(Human father, Human mother) {
         this.father = father;
         this.mother = mother;
+
+        father.setFamily(this);
+        mother.setFamily(this);
+
         this.children = new ArrayList<>();
     }
 
@@ -110,7 +115,7 @@ public class Family implements HumanCreator {
                 "mother=" + mother +
                 ", father=" + father +
                 ", children=" + children.toString() +
-                ", pet=" + pet +
+                ", pet=" + pets +
                 '}';
     }
 
