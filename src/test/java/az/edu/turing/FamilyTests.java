@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
     private Human child;
 
     @BeforeEach
-    public void setup() {
+     void setup() {
         father = new Human("Jack", "Johnson", 1975);
         mother = new Human("Anna", "Johnson", 1977);
         child = new Human("Tom", "Johnson", 2005);
