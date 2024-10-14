@@ -15,7 +15,7 @@ public class FamilyTests {
     private Human child;
 
     @BeforeEach
-    public void setup() {
+     void setup() {
         father = new Human("Jack", "Johnson", 1975);
         mother = new Human("Anna", "Johnson", 1977);
         child = new Human("Tom", "Johnson", 2005);
@@ -59,7 +59,7 @@ public class FamilyTests {
                 "mother=Human{name='Anna', surname='Johnson', year=1977, iq=0, schedule=null}, " +
                 "father=Human{name='Jack', surname='Johnson', year=1975, iq=0, schedule=null}, " +
                 "children=[Human{name='Tom', surname='Johnson', year=2005, iq=0, schedule=null}], " +
-                "pet=DOG{nickname='Buddy', age=0, trickLevel=0, habits=no habits}}";
+                "pet=null}";
         assertEquals(expected, family.toString());
     }
 

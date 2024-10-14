@@ -1,12 +1,14 @@
 package az.edu.turing.Entities;
 
+import java.util.Map;
+
 public class Man extends Human {
 
     public Man(String name, String surname, int year) {
         super(name, surname, year);
     }
 
-    public Man(String name, String surname, int year, int iq, String[][] schedule, Family family) {
+    public Man(String name, String surname, int year, int iq, Map<DayOfWeek,String> schedule, Family family) {
         super(name, surname, year, iq, schedule, family);
     }
 
