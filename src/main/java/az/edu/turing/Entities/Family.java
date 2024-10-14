@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
+import java.util.Set;
 
 public class Family implements HumanCreator {
 
     private Human mother;
     private Human father;
     private List<Human> children;
-    private Pet pet;
+    private Set<Pet> pets;
 
     static {
         System.out.println("Family class is being loaded");
@@ -23,11 +24,15 @@ public class Family implements HumanCreator {
     public Family(Human father, Human mother) {
         this.father = father;
         this.mother = mother;
+
+        father.setFamily(this);
+        mother.setFamily(this);
+
         this.children = new ArrayList<>();
     }
 
-    public Family(Pet pet, Human mother, Human father) {
-        this.pet = pet;
+    public Family(Human mother, Human father, Set<Pet> pets) {
+        this.pets = pets != null ? pets : new HashSet<>();
         this.mother = mother;
         this.father = father;
     }
@@ -80,12 +85,12 @@ public class Family implements HumanCreator {
         this.children = children;
     }
 
-    public Pet getPet() {
-        return pet;
+    public Set<Pet> getPets() {
+        return pets;
     }
 
-    public void setPet(Pet pet) {
-        this.pet = pet;
+    public void setPets(Set<Pet> pets) {
+        this.pets = pets;
     }
 
     @Override
@@ -107,7 +112,7 @@ public class Family implements HumanCreator {
                 "mother=" + mother +
                 ", father=" + father +
                 ", children=" + children.toString() +
-                ", pet=" + pet +
+                ", pet=" + pets +
                 '}';
     }
 

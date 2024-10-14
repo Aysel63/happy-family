@@ -2,6 +2,7 @@ package az.edu.turing.Entities;
 
 import java.util.Objects;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Human {
 
@@ -28,13 +29,20 @@ public class Human {
         this.family = family;
     }
 
-    public String greetPet() {
-        return "Hello, " + family.getPet().getNickname();
+    public String greetPets() {
+        List<String> petNickNames = family.getPets().stream().map(Pet::getNickname).collect(Collectors.toList());
+        String result = String.join(", ", petNickNames);
+        return "Hello, " + result + ".";
     }
 
-    public String describePet() {
-        String slyLevel = family.getPet().getTrickLevel() > 50 ? "very sly" : "almost not sly";
-        return String.format("I have a %s, it is %d years old, and it is %s.", family.getPet().getSpecies(), family.getPet().getAge(), slyLevel);
+    public String describePets() {
+        StringBuilder result = new StringBuilder();
+        for (Pet pet : family.getPets()) {
+            String slyLevel = pet.getTrickLevel() > 50 ? "very sly" : "almost not sly";
+            result.append(String.format("I have a %s, it is %d years old, and it is %s.\n",
+                    pet.getSpecies(), pet.getAge(), slyLevel));
+        }
+        return result.toString();
     }
 
 
