@@ -47,7 +47,7 @@ public class Human {
             result.append(String.format("I have a %s, it is %d years old, and it is %s.\n",
                     pet.getSpecies(), pet.getAge(), slyLevel));
         }
-        return result.toString().trim();
+        return result.toString();
     }
 
 
