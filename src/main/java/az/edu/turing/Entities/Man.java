@@ -11,8 +11,8 @@ public class Man extends Human {
     }
 
     @Override
-    public String greetPet() {
-        return super.greetPet() + ". Let's play football.";
+    public String greetPets() {
+        return super.greetPets() + ". Let's play football.";
     }
 
     public String repairCar() {

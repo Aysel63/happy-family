@@ -21,8 +21,7 @@ public abstract class Pet {
     }
 
     public Pet(Species species, String nickname, int age, int trickLevel, Set<String> habits) {
-        this.species = species;
-        this.nickname = nickname;
+        this(species, nickname);
         this.age = age;
         this.trickLevel = trickLevel;
         this.habits = habits;

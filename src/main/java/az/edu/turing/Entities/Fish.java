@@ -1,6 +1,16 @@
 package az.edu.turing.Entities;
 
-public class Fish extends Pet{
+import java.util.Set;
+
+public class Fish extends Pet {
+
+    public Fish(String nickname) {
+        super(Species.FISH, nickname);
+    }
+
+    public Fish(String nickname, int age, int trickLevel, Set<String> habits) {
+        super(Species.FISH, nickname, age, trickLevel, habits);
+    }
 
     @Override
     public String respond() {

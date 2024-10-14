@@ -20,10 +20,14 @@ public class Family implements HumanCreator {
     public Family(Human father, Human mother) {
         this.father = father;
         this.mother = mother;
+
+        father.setFamily(this);
+        mother.setFamily(this);
+
         this.children = new Human[]{};
     }
 
-    public Family(Set<Pet> pets, Human mother, Human father) {
+    public Family(Human mother, Human father, Set<Pet> pets) {
         this.pets = pets != null ? pets : new HashSet<>();
         this.mother = mother;
         this.father = father;
