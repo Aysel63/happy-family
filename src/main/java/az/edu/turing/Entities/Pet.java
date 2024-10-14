@@ -2,6 +2,7 @@ package az.edu.turing.Entities;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Set;
 
 public abstract class Pet {
 
@@ -9,7 +10,7 @@ public abstract class Pet {
     private String nickname;
     private int age;
     private int trickLevel;
-    private String[] habits;
+    private Set<String> habits;
 
     public Pet() {
     }
@@ -19,7 +20,7 @@ public abstract class Pet {
         this.nickname = nickname;
     }
 
-    public Pet(Species species, String nickname, int age, int trickLevel, String[] habits) {
+    public Pet(Species species, String nickname, int age, int trickLevel, Set<String> habits) {
         this.species = species;
         this.nickname = nickname;
         this.age = age;
@@ -45,7 +46,7 @@ public abstract class Pet {
 
     @Override
     public int hashCode() {
-        return Objects.hash(species, nickname, age, trickLevel, Arrays.hashCode(habits));
+        return Objects.hash(species, nickname, age, trickLevel, Arrays.hashCode(new Set[]{habits}));
     }
 
     @Override
@@ -90,11 +91,11 @@ public abstract class Pet {
         this.trickLevel = trickLevel;
     }
 
-    public String[] getHabits() {
+    public Set<String> getHabits() {
         return habits;
     }
 
-    public void setHabits(String[] habits) {
+    public void setHabits(Set<String> habits) {
         this.habits = habits;
     }
 }
