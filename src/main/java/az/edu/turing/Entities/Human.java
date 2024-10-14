@@ -1,7 +1,10 @@
 package az.edu.turing.Entities;
 
+import az.edu.turing.entity.Pet;
+
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -12,7 +15,7 @@ public class Human {
     private String surname;
     private int year;
     private int iq;
-    private Map<DayOfWeek, String> schedule;
+    private Map<String, String> schedule;
     private Family family;
 
 
@@ -22,7 +25,7 @@ public class Human {
         this.year = year;
     }
 
-    public Human(String name, String surname, int year, int iq, Map<DayOfWeek, String> schedule, Family family) {
+    public Human(String name, String surname, int year, int iq, Map<String, String> schedule, Family family) {
         this.name = name;
         this.surname = surname;
         this.year = year;
@@ -31,17 +34,13 @@ public class Human {
         this.family = family;
     }
 
-    public String greetPet() {
-        Set<Pet> pets = family.getPets();
-        StringBuilder result = new StringBuilder();
-        for (Pet pet : pets) {
-            result.append(pet.getNickname()).append(", ");
-            result.delete(result.length() - 2, result.length());
-        }
-        return "Hello, " + result;
+    public String greetPets() {
+        List<String>petNickNames=family.getPets().stream().map(Pet::getNickname).colllect(Collectors.toList());
+        String result=String.join(", ",petNickNames);
+        return "Hello, " + result + ".";
     }
 
-    public String describePet() {
+    public String describePets() {
         StringBuilder result = new StringBuilder();
         for (Pet pet : family.getPets()) {
             String slyLevel = pet.getTrickLevel() > 50 ? "very sly" : "almost not sly";
@@ -84,11 +83,11 @@ public class Human {
         this.iq = iq;
     }
 
-    public Map<DayOfWeek, String> getSchedule() {
+    public Map<String, String> getSchedule() {
         return schedule;
     }
 
-    public void setSchedule(Map<DayOfWeek, String> schedule) {
+    public void setSchedule(Map<String, String> schedule) {
         this.schedule = schedule;
     }
 
@@ -120,7 +119,7 @@ public class Human {
                 ", surname='" + surname + '\'' +
                 ", year=" + year +
                 ", iq=" + iq +
-                ", schedule=" + (schedule != null ? schedule.toString() : "null") +
+                ", schedule=" + schedule +
                 '}';
     }
 }
