@@ -1,6 +1,16 @@
 package az.edu.turing.Entities;
 
-public class DomesticCat extends Pet implements Foulable{
+import java.util.Set;
+
+public class DomesticCat extends Pet implements Foulable {
+
+    public DomesticCat(String nickname) {
+        super(Species.CAT, nickname);
+    }
+
+    public DomesticCat(String nickname, int age, int trickLevel, Set<String> habits) {
+        super(Species.CAT, nickname, age, trickLevel, habits);
+    }
 
     @Override
     public String foul() {

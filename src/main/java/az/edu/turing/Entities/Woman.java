@@ -11,8 +11,8 @@ public class Woman extends Human {
     }
 
     @Override
-    public String greetPet() {
-        return super.greetPet() + "Let's go for a walk.";
+    public String greetPets() {
+        return super.greetPets() + "Let's go for a walk.";
     }
 
     public String makeup() {
