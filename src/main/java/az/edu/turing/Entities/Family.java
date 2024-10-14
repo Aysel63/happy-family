@@ -1,6 +1,7 @@
 package az.edu.turing.Entities;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
@@ -8,7 +9,7 @@ public class Family implements HumanCreator {
 
     private Human mother;
     private Human father;
-    private Human[] children;
+    private List<Human> children;
     private Set<Pet> pets;
 
     static {
