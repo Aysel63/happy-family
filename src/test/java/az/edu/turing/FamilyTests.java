@@ -2,8 +2,6 @@ package az.edu.turing;
 
 import az.edu.turing.Entities.Family;
 import az.edu.turing.Entities.Human;
-import az.edu.turing.Entities.Pet;
-import az.edu.turing.Entities.Species;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +27,7 @@ public class FamilyTests {
     void deleteChild_ShouldDeleteChild_Success() {
         boolean result = family.deleteChild(child);
         assertTrue(result);
-        assertEquals(0, family.getChildren().length);
+        assertEquals(0, family.getChildren().size());
     }
 
     @Test
@@ -37,7 +35,7 @@ public class FamilyTests {
         Human nonExistentChild = new Human("Carl", "Williams", 2000);
         boolean result = family.deleteChild(nonExistentChild);
         assertFalse(result);
-        assertEquals(1, family.getChildren().length);
+        assertEquals(1, family.getChildren().size());
 
     }
 
@@ -45,14 +43,14 @@ public class FamilyTests {
     void deleteChild_ValidIndex() {
         boolean result = family.deleteChild(0);
         assertTrue(result);
-        assertEquals(0, family.getChildren().length);
+        assertEquals(0, family.getChildren().size());
     }
 
     @Test
     void deleteChild_InValidIndex() {
         boolean result = family.deleteChild(1);
         assertFalse(result);
-        assertEquals(1, family.getChildren().length);
+        assertEquals(1, family.getChildren().size());
     }
 
     @Test

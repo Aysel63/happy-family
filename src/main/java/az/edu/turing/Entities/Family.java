@@ -1,6 +1,9 @@
 package az.edu.turing.Entities;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Random;
 
 public class Family implements HumanCreator {
 
@@ -46,12 +49,7 @@ public class Family implements HumanCreator {
     }
 
     public boolean deleteChild(Human child) {
-        for (int i = 0; i < children.size(); i++) {
-            if (children.get(i).equals(child)) {
-                return deleteChild(i);
-            }
-        }
-        return false;
+        return children.remove(child);
     }
 
     public int countFamily() {
@@ -108,7 +106,7 @@ public class Family implements HumanCreator {
         return "Family{" +
                 "mother=" + mother +
                 ", father=" + father +
-                ", children=" + children.toString()+
+                ", children=" + children.toString() +
                 ", pet=" + pet +
                 '}';
     }
