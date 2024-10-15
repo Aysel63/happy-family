@@ -1,15 +1,13 @@
 package az.edu.turing.Entities;
 
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 public class Family implements HumanCreator {
 
     private Human mother;
     private Human father;
     private Human[] children;
-    private Pet pet;
+    private Set<Pet> pets;
 
     static {
         System.out.println("Family class is being loaded");
@@ -25,7 +23,7 @@ public class Family implements HumanCreator {
     public Family(Human father, Human mother) {
         this.father = father;
         this.mother = mother;
-        this.children = new Human[]{};
+        this.children = new ArrayList<>();
     }
 
     public Family(Pet pet, Human mother, Human father) {
@@ -34,36 +32,28 @@ public class Family implements HumanCreator {
         this.father = father;
     }
 
-    public void addChild(Human child) {
-        children = Arrays.copyOf(children, children.length + 1);
+    public Human addChild(Human child) {
+        children.add(child);
         child.setFamily(this);
-        children[children.length - 1] = child;
+        return child;
     }
 
     public boolean deleteChild(int index) {
-        if (index < 0 || index >= children.length) {
+        if (index < 0 || index >= children.size()) {
             return false;
         }
-        Human child = children[index];
+        Human child = children.get(index);
         child.setFamily(null);
-        for (int i = index; i < children.length - 1; i++) {
-            children[i] = children[i + 1];
-        }
-        children = Arrays.copyOf(children, children.length - 1);
+        children.remove(index);
         return true;
     }
 
     public boolean deleteChild(Human child) {
-        for (int i = 0; i < children.length; i++) {
-            if (children[i].equals(child)) {
-                return deleteChild(i);
-            }
-        }
-        return false;
+        return children.remove(child);
     }
 
     public int countFamily() {
-        return 2 + children.length;
+        return 2 + children.size();
     }
 
     public Human getMother() {
@@ -82,20 +72,20 @@ public class Family implements HumanCreator {
         this.father = father;
     }
 
-    public Human[] getChildren() {
+    public List<Human> getChildren() {
         return children;
     }
 
-    public void setChildren(Human[] children) {
+    public void setChildren(List<Human> children) {
         this.children = children;
     }
 
-    public Pet getPet() {
-        return pet;
+    public Set<Pet> getPets() {
+        return pets;
     }
 
-    public void setPet(Pet pet) {
-        this.pet = pet;
+    public void setPets(Set<Pet> pets) {
+        this.pets = pets;
     }
 
     @Override
@@ -116,7 +106,7 @@ public class Family implements HumanCreator {
         return "Family{" +
                 "mother=" + mother +
                 ", father=" + father +
-                ", children=" + Arrays.toString(children) +
+                ", children=" + children.toString() +
                 ", pet=" + pet +
                 '}';
     }

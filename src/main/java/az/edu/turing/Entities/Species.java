@@ -1,5 +1,6 @@
 package az.edu.turing.Entities;
 
+
 public enum Species {
 
     DOG(false, 4, true),
@@ -7,7 +8,8 @@ public enum Species {
     FISH(false, 0, false),
     BIRD(true, 2, false),
     HAMSTER(false, 4, true),
-    RABBIT(false, 4, true);
+    RABBIT(false, 4, true),
+    UNKNOWN (false, 0, false);
 
     private final boolean canFly;
     private final int numberOfLegs;

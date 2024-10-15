@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
     private Human child;
 
     @BeforeEach
-    public void setup() {
+     void setup() {
         father = new Human("Jack", "Johnson", 1975);
         mother = new Human("Anna", "Johnson", 1977);
         child = new Human("Tom", "Johnson", 2005);
@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.*;
     void deleteChild_ShouldDeleteChild_Success() {
         boolean result = family.deleteChild(child);
         assertTrue(result);
-        assertEquals(0, family.getChildren().length);
+        assertEquals(0, family.getChildren().size());
     }
 
     @Test
@@ -35,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.*;
         Human nonExistentChild = new Human("Carl", "Williams", 2000);
         boolean result = family.deleteChild(nonExistentChild);
         assertFalse(result);
-        assertEquals(1, family.getChildren().length);
+        assertEquals(1, family.getChildren().size());
 
     }
 
@@ -43,14 +43,14 @@ import static org.junit.jupiter.api.Assertions.*;
     void deleteChild_ValidIndex() {
         boolean result = family.deleteChild(0);
         assertTrue(result);
-        assertEquals(0, family.getChildren().length);
+        assertEquals(0, family.getChildren().size());
     }
 
     @Test
     void deleteChild_InValidIndex() {
         boolean result = family.deleteChild(1);
         assertFalse(result);
-        assertEquals(1, family.getChildren().length);
+        assertEquals(1, family.getChildren().size());
     }
 
     @Test

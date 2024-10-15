@@ -1,8 +1,10 @@
 package az.edu.turing.Entities;
 
-import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 public class Human {
 
@@ -10,7 +12,7 @@ public class Human {
     private String surname;
     private int year;
     private int iq;
-    private String [][] schedule;
+    private Map<DayOfWeek, String> schedule;
     private Family family;
 
 
@@ -20,7 +22,7 @@ public class Human {
         this.year = year;
     }
 
-    public Human(String name, String surname, int year, int iq, String[][] schedule, Family family) {
+    public Human(String name, String surname, int year, int iq, Map<DayOfWeek, String> schedule, Family family) {
         this.name = name;
         this.surname = surname;
         this.year = year;
@@ -30,12 +32,23 @@ public class Human {
     }
 
     public String greetPet() {
-        return "Hello, " + family.getPet().getNickname();
+        Set<Pet> pets = family.getPets();
+        StringBuilder result = new StringBuilder();
+        for (Pet pet : pets) {
+            result.append(pet.getNickname()).append(", ");
+            result.delete(result.length() - 2, result.length());
+        }
+        return "Hello, " + result;
     }
 
     public String describePet() {
-        String slyLevel = family.getPet().getTrickLevel() > 50 ? "very sly" : "almost not sly";
-        return String.format("I have a %s, it is %d years old, and it is %s.", family.getPet().getSpecies(), family.getPet().getAge(), slyLevel);
+        StringBuilder result = new StringBuilder();
+        for (Pet pet : family.getPets()) {
+            String slyLevel = pet.getTrickLevel() > 50 ? "very sly" : "almost not sly";
+            result.append(String.format("I have a %s, it is %d years old, and it is %s.\n",
+                    pet.getSpecies(), pet.getAge(), slyLevel));
+        }
+        return result.toString();
     }
 
 
@@ -71,11 +84,11 @@ public class Human {
         this.iq = iq;
     }
 
-    public  String[][] getSchedule() {
+    public Map<DayOfWeek, String> getSchedule() {
         return schedule;
     }
 
-    public void setSchedule (String[][] schedule) {
+    public void setSchedule(Map<DayOfWeek, String> schedule) {
         this.schedule = schedule;
     }
 
@@ -107,7 +120,7 @@ public class Human {
                 ", surname='" + surname + '\'' +
                 ", year=" + year +
                 ", iq=" + iq +
-                ", schedule=" + (schedule != null ? Arrays.deepToString(schedule) : "null") +
+                ", schedule=" + (schedule != null ? schedule.toString() : "null") +
                 '}';
     }
 }
