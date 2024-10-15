@@ -8,13 +8,14 @@ public class Man extends Human {
         super(name, surname, year);
     }
 
-    public Man(String name, String surname, int year, int iq, Map<DayOfWeek,String> schedule, Family family) {
+    public Man(String name, String surname, int year, int iq, Map<String, String> schedule, Family family) {
         super(name, surname, year, iq, schedule, family);
     }
 
+
     @Override
-    public String greetPets() {
-        return super.greetPets() + ". Let's play football.";
+    public String greetPet() {
+        return super.greetPet() + ". Let's play football";
     }
 
     public String repairCar() {

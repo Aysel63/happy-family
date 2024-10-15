@@ -1,9 +1,6 @@
 package az.edu.turing.Entities;
-
-import java.util.List;
 import java.util.Objects;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 public class Human {
@@ -12,7 +9,7 @@ public class Human {
     private String surname;
     private int year;
     private int iq;
-    private Map<DayOfWeek, String> schedule;
+    private Map<String, String> schedule;
     private Family family;
 
 
@@ -22,7 +19,7 @@ public class Human {
         this.year = year;
     }
 
-    public Human(String name, String surname, int year, int iq, Map<DayOfWeek, String> schedule, Family family) {
+    public Human(String name, String surname, int year, int iq, Map<String,String> schedule, Family family) {
         this.name = name;
         this.surname = surname;
         this.year = year;
@@ -84,11 +81,11 @@ public class Human {
         this.iq = iq;
     }
 
-    public Map<DayOfWeek, String> getSchedule() {
+    public Map<String,String> getSchedule() {
         return schedule;
     }
 
-    public void setSchedule(Map<DayOfWeek, String> schedule) {
+    public void setSchedule(Map<String,String> schedule) {
         this.schedule = schedule;
     }
 
@@ -105,7 +102,8 @@ public class Human {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         Human human = (Human) object;
-        return year == human.year && Objects.equals(name, human.name) && Objects.equals(surname, human.surname) && Objects.equals(family, human.family);
+        return year == human.year && Objects.equals(name, human.name) && Objects.equals(surname, human.surname)
+                && Objects.equals(family, human.family);
     }
 
     @Override
@@ -120,7 +118,7 @@ public class Human {
                 ", surname='" + surname + '\'' +
                 ", year=" + year +
                 ", iq=" + iq +
-                ", schedule=" + (schedule != null ? schedule.toString() : "null") +
+                ", schedule=" + schedule +
                 '}';
     }
 }

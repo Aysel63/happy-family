@@ -12,7 +12,7 @@ public abstract class Pet {
     private int trickLevel;
     private Set<String> habits;
 
-   protected  Pet() {
+    protected Pet() {
     }
 
     protected Pet(Species species, String nickname) {
@@ -56,7 +56,7 @@ public abstract class Pet {
                 "nickname='" + nickname + '\'' +
                 ", age=" + age +
                 ", trickLevel=" + trickLevel +
-                ", habits=" + (habits != null ? String.join(", ", habits) : "no habits") +
+                ", habits=" + habits +
                 '}';
     }
 

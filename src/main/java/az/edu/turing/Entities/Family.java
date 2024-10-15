@@ -6,7 +6,7 @@ public class Family implements HumanCreator {
 
     private Human mother;
     private Human father;
-    private Human[] children;
+    private List<Human> children;
     private Set<Pet> pets;
 
     static {
@@ -18,6 +18,13 @@ public class Family implements HumanCreator {
     }
 
     public Family() {
+        this.children = new ArrayList<>();
+        this.pets = new HashSet<>();
+    }
+
+    public Family(Human father, Set<Pet> pets) {
+        this.father = father;
+        this.pets = pets;
     }
 
     public Family(Human father, Human mother) {
@@ -26,16 +33,11 @@ public class Family implements HumanCreator {
         this.children = new ArrayList<>();
     }
 
-    public Family(Pet pet, Human mother, Human father) {
-        this.pet = pet;
-        this.mother = mother;
-        this.father = father;
-    }
 
-    public Human addChild(Human child) {
+    public List<Human> addChild(Human child) {
         children.add(child);
         child.setFamily(this);
-        return child;
+        return children;
     }
 
     public boolean deleteChild(int index) {
@@ -107,7 +109,7 @@ public class Family implements HumanCreator {
                 "mother=" + mother +
                 ", father=" + father +
                 ", children=" + children.toString() +
-                ", pet=" + pet +
+                ", pet=" + pets.toString() +
                 '}';
     }
 
