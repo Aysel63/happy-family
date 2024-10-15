@@ -1,7 +1,7 @@
 package az.edu.turing;
 
-import az.edu.turing.Entities.Family;
-import az.edu.turing.Entities.Human;
+import az.edu.turing.entities.Family;
+import az.edu.turing.entities.Human;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
