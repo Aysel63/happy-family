@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CollectionFamilyDao implements FamilyDao {
+
     private final List<Family> families;
 
     public CollectionFamilyDao() {
@@ -41,7 +42,7 @@ public class CollectionFamilyDao implements FamilyDao {
     }
 
     @Override
-    public void saveFamily(Family family) { // test for this method
+    public void saveFamily(Family family) {
         int index = families.indexOf(family);
         if (index >= 0) {
             families.set(index, family);
@@ -49,5 +50,4 @@ public class CollectionFamilyDao implements FamilyDao {
             families.add(family);
         }
     }
-
 }
