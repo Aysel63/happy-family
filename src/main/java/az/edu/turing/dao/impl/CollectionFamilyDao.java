@@ -1,4 +1,7 @@
-package az.edu.turing.Entities;
+package az.edu.turing.dao.impl;
+
+import az.edu.turing.dao.FamilyDao;
+import az.edu.turing.entities.Family;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +41,7 @@ public class CollectionFamilyDao implements FamilyDao {
     }
 
     @Override
-    public void saveFamily(Family family) {
+    public void saveFamily(Family family) { // test for this method
         int index = families.indexOf(family);
         if (index >= 0) {
             families.set(index, family);
@@ -46,4 +49,5 @@ public class CollectionFamilyDao implements FamilyDao {
             families.add(family);
         }
     }
+
 }

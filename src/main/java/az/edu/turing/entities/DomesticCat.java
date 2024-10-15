@@ -1,4 +1,4 @@
-package az.edu.turing.Entities;
+package az.edu.turing.entities;
 
 import java.util.Set;
 
