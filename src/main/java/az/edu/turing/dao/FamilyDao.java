@@ -1,4 +1,6 @@
-package az.edu.turing.Entities;
+package az.edu.turing.dao;
+
+import az.edu.turing.entities.Family;
 
 import java.util.List;
 
