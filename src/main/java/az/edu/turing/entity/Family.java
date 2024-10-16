@@ -39,6 +39,8 @@ public class Family implements HumanCreator {
 
         father.setFamily(this);
         mother.setFamily(this);
+
+        this.children = new ArrayList<>();
     }
 
     public Family(Human mother, Human father, Set<Pet> pets) {

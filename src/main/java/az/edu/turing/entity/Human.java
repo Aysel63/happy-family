@@ -78,7 +78,7 @@ public class Human {
     @Override
     protected void finalize() throws Throwable {
         System.out.println("Human object is being removed: " + this.getName() + " " + this.getSurname());
-
+        super.finalize();
     }
 
 
@@ -140,7 +140,7 @@ public class Human {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, surname, birthDate, family);
+        return Objects.hash(name, surname,birthDate, family);
     }
 
     @Override
