@@ -9,22 +9,22 @@ public class Human {
 
     private String name;
     private String surname;
-    private int year;
+    private long birthDate;
     private int iq;
     private Map<DayOfWeek, String> schedule;
     private Family family;
 
 
-    public Human(String name, String surname, int year) {
+    public Human(String name, String surname, long birthDate) {
         this.name = name;
         this.surname = surname;
-        this.year = year;
+        this.birthDate = birthDate;
     }
 
-    public Human(String name, String surname, int year, int iq, Map<DayOfWeek, String> schedule, Family family) {
+    public Human(String name, String surname, long birthDate, int iq, Map<DayOfWeek, String> schedule, Family family) {
         this.name = name;
         this.surname = surname;
-        this.year = year;
+        this.birthDate = birthDate;
         this.iq = iq;
         this.schedule = schedule;
         this.family = family;
@@ -63,12 +63,12 @@ public class Human {
         this.surname = surname;
     }
 
-    public int getYear() {
-        return year;
+    public long getBirthDate() {
+        return birthDate;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setBirthDate(long birthDate) {
+        this.birthDate = birthDate;
     }
 
     public int getIq() {
@@ -100,12 +100,12 @@ public class Human {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         Human human = (Human) object;
-        return year == human.year && Objects.equals(name, human.name) && Objects.equals(surname, human.surname) && Objects.equals(family, human.family);
+        return birthDate == human.birthDate && Objects.equals(name, human.name) && Objects.equals(surname, human.surname) && Objects.equals(family, human.family);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, surname, year, family);
+        return Objects.hash(name, surname,birthDate, family);
     }
 
     @Override
@@ -113,9 +113,9 @@ public class Human {
         return "Human{" +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", year=" + year +
+                ", year=" + birthDate +
                 ", iq=" + iq +
-                ", schedule=" + (schedule != null ? schedule.toString() : "null") +
+                ", schedule=" + schedule +
                 '}';
     }
 }

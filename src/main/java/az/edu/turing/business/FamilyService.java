@@ -3,8 +3,9 @@ package az.edu.turing.business;
 import az.edu.turing.dao.FamilyDao;
 import az.edu.turing.entities.Family;
 import az.edu.turing.entities.Human;
+import az.edu.turing.entities.Pet;
 
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class FamilyService {
@@ -56,5 +57,54 @@ public class FamilyService {
         return familyDao.deleteFamily(index);
     }
 
+    public Family bornChild(Family family, String masculineName, String feminineName) {
+        String childName = (Math.random() < 0.5) ? masculineName : feminineName;
+        long birthYear = Calendar.getInstance().get(Calendar.YEAR);
+        Human child = new Human(childName, family.getFather().getSurname(), birthYear);
+        family.addChild(child);
+        familyDao.saveFamily(family);
+        return family;
+    }
 
+    public Family adoptChild(Family family, Human child) {
+        family.addChild(child);
+        familyDao.saveFamily(family);
+        return family;
+    }
+
+    public void deleteAllChildrenOlderThen(int age) {
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        List<Family> allFamilies = familyDao.getAllFamilies();
+        allFamilies.forEach(family -> {
+            family.getChildren().removeIf(child -> (currentYear - child.getBirthDate()) > age);
+            familyDao.saveFamily(family);
+        });
+    }
+
+    public int count() {
+        return familyDao.getAllFamilies().size();
+    }
+
+    public Family getFamilyById(int index) {
+        List<Family> allFamilies = familyDao.getAllFamilies();
+        if (index < 0 || index >= allFamilies.size())
+            throw new IndexOutOfBoundsException("Invalid family index: " + index);
+        return allFamilies.get(index);
+    }
+
+    public Set<Pet> getPets(int familyIndex) {
+        Family family = getFamilyById(familyIndex);
+        return  family.getPets();
+    }
+
+    public void addPet(int familyIndex, Pet pet) {
+        Family family = getFamilyById(familyIndex);
+        Set<Pet> pets =  family.getPets();
+        if (pets == null) {
+            pets = new HashSet<>();
+        }
+        pets.add(pet);
+        family.setPets((Set<Pet>) pets);
+        familyDao.saveFamily(family);
+    }
 }
