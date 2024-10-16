@@ -36,8 +36,8 @@ public class FamilyController {
         return familyService.countFamiliesWithMemberNumber(numberOfPeople);
     }
 
-    public void createNewFamily(Human father, Human mother) {
-        familyService.createNewFamily(father, mother);
+    public Family createNewFamily(Human father, Human mother) {
+        return familyService.createNewFamily(father, mother);
     }
 
     public boolean deleteFamilyByIndex(int index) {
