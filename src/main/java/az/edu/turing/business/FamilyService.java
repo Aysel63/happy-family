@@ -48,9 +48,11 @@ public class FamilyService {
                 .collect(Collectors.toList());
     }
 
-    public void createNewFamily(Human father, Human mother) {
+    public Family createNewFamily(Human father, Human mother) {
         if (father == null || mother == null) throw new NullPointerException("father and mother cannot be null");
-        familyDao.saveFamily(new Family(father, mother));
+        Family family = new Family(father, mother);
+        familyDao.saveFamily(family);
+        return family;
     }
 
     public boolean deleteFamilyByIndex(int index) {
@@ -94,17 +96,17 @@ public class FamilyService {
 
     public Set<Pet> getPets(int familyIndex) {
         Family family = getFamilyById(familyIndex);
-        return  family.getPets();
+        return family.getPets();
     }
 
     public void addPet(int familyIndex, Pet pet) {
         Family family = getFamilyById(familyIndex);
-        Set<Pet> pets =  family.getPets();
+        Set<Pet> pets = family.getPets();
         if (pets == null) {
             pets = new HashSet<>();
         }
         pets.add(pet);
-        family.setPets((Set<Pet>) pets);
+        family.setPets(pets);
         familyDao.saveFamily(family);
     }
 }
