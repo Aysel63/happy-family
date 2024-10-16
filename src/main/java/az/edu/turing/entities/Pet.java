@@ -34,6 +34,12 @@ public abstract class Pet {
 
     public abstract String respond();
 
+    @Override
+    protected void finalize() throws Throwable {
+        System.out.println("Pet object is being removed: " + this.getNickname());
+
+    }
+
 
     @Override
     public boolean equals(Object object) {
