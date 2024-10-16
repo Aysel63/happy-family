@@ -95,9 +95,9 @@ public class FamilyService {
         return allFamilies.get(index);
     }
 
-    public List<Pet> getPets(int familyIndex) {
+    public Set<Pet> getPets(int familyIndex) {
         Family family = getFamilyById(familyIndex);
-        return (List<Pet>) family.getPets();
+        return  family.getPets();
     }
 
     public void addPet(int familyIndex, Pet pet) {
