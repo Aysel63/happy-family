@@ -12,15 +12,15 @@ public abstract class Pet {
     private int trickLevel;
     private Set<String> habits;
 
-    public Pet() {
+    protected Pet() {
     }
 
-    public Pet(Species species, String nickname) {
+    protected Pet(Species species, String nickname) {
         this.species = species;
         this.nickname = nickname;
     }
 
-    public Pet(Species species, String nickname, int age, int trickLevel, Set<String> habits) {
+    protected Pet(Species species, String nickname, int age, int trickLevel, Set<String> habits) {
         this(species, nickname);
         this.age = age;
         this.trickLevel = trickLevel;
@@ -61,7 +61,7 @@ public abstract class Pet {
                 "nickname='" + nickname + '\'' +
                 ", age=" + age +
                 ", trickLevel=" + trickLevel +
-                ", habits=" + (habits != null ? String.join(", ", habits) : "no habits") +
+                ", habits=" + habits +
                 '}';
     }
 
