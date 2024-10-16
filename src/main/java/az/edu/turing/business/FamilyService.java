@@ -5,7 +5,10 @@ import az.edu.turing.entities.Family;
 import az.edu.turing.entities.Human;
 import az.edu.turing.entities.Pet;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class FamilyService {
@@ -96,7 +99,11 @@ public class FamilyService {
 
     public Set<Pet> getPets(int familyIndex) {
         Family family = getFamilyById(familyIndex);
-        return family.getPets();
+        if (family != null) {
+            Set<Pet> pets = family.getPets();
+            return pets != null ? new HashSet<>(pets) : new HashSet<>();
+        }
+        return new HashSet<>();
     }
 
     public void addPet(int familyIndex, Pet pet) {

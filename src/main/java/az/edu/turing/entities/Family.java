@@ -1,6 +1,13 @@
 package az.edu.turing.entities;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+
+
+import java.util.Random;
 
 public class Family implements HumanCreator {
 
@@ -15,6 +22,10 @@ public class Family implements HumanCreator {
 
     {
         System.out.println("A new family object is being created");
+    }
+
+
+    public Family() {
     }
 
     public Family(Human father, Human mother) {

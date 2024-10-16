@@ -1,8 +1,8 @@
 package az.edu.turing.entities;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Human {
@@ -11,7 +11,7 @@ public class Human {
     private String surname;
     private long birthDate;
     private int iq;
-    private Map<DayOfWeek, String> schedule;
+    private Map<String, String> schedule;
     private Family family;
 
 
@@ -21,7 +21,7 @@ public class Human {
         this.birthDate = birthDate;
     }
 
-    public Human(String name, String surname, long birthDate, int iq, Map<DayOfWeek, String> schedule, Family family) {
+    public Human(String name, String surname, long birthDate, int iq, Map<String, String> schedule, Family family) {
         this.name = name;
         this.surname = surname;
         this.birthDate = birthDate;
@@ -79,11 +79,11 @@ public class Human {
         this.iq = iq;
     }
 
-    public Map<DayOfWeek, String> getSchedule() {
+    public Map<String, String> getSchedule() {
         return schedule;
     }
 
-    public void setSchedule(Map<DayOfWeek, String> schedule) {
+    public void setSchedule(Map<String, String> schedule) {
         this.schedule = schedule;
     }
 
@@ -105,7 +105,7 @@ public class Human {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, surname,birthDate, family);
+        return Objects.hash(name, surname, birthDate, family);
     }
 
     @Override
