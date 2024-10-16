@@ -74,7 +74,6 @@ public class Human {
     @Override
     protected void finalize() throws Throwable {
         System.out.println("Human object is being removed: " + this.getName() + " " + this.getSurname());
-        super.finalize();
 
     }
 
