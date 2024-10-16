@@ -1,5 +1,8 @@
 package az.edu.turing.entities;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 import java.util.Map;
@@ -30,6 +33,26 @@ public class Human {
         this.family = family;
     }
 
+    public Human(String name, String surname, String birthDate, int iq) {
+        this.name = name;
+        this.surname = surname;
+        this.birthDate = parseBirthDate(birthDate).toEpochDay();
+        this.iq = iq;
+    }
+
+    private LocalDate parseBirthDate(String birthDate) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return LocalDate.parse(birthDate, formatter);
+    }
+
+    public String describeAge() {
+        LocalDate birthDateLocal = LocalDate.ofEpochDay(birthDate);
+        LocalDate currentDate = LocalDate.now();
+
+        Period age = Period.between(birthDateLocal, currentDate);
+        return String.format("%d years, %d months, and %d days", age.getYears(), age.getMonths(), age.getDays());
+    }
+
     public String greetPets() {
         List<String> petNickNames = family.getPets().stream().map(Pet::getNickname).collect(Collectors.toList());
         String result = String.join(", ", petNickNames);
@@ -44,6 +67,12 @@ public class Human {
                     pet.getSpecies(), pet.getAge(), slyLevel));
         }
         return result.toString();
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        System.out.println("Human object is being removed: " + this.getName() + " " + this.getSurname());
+
     }
 
 
@@ -105,7 +134,7 @@ public class Human {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, surname,birthDate, family);
+        return Objects.hash(name, surname, birthDate, family);
     }
 
     @Override

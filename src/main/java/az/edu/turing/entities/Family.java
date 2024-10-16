@@ -134,4 +134,11 @@ public class Family implements HumanCreator {
         addChild(child);
         return child;
     }
+
+    @Override
+    protected void finalize() throws Throwable {
+        System.out.println("Family object is being removed: " + this);
+
+    }
+
 }
