@@ -2,6 +2,7 @@ package az.edu.turing.entities;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
@@ -36,13 +37,14 @@ public class Human {
     public Human(String name, String surname, String birthDate, int iq) {
         this.name = name;
         this.surname = surname;
-        this.birthDate = parseBirthDate(birthDate).toEpochDay();
+        this.birthDate = parseBirthDate(birthDate);
         this.iq = iq;
     }
 
-    private LocalDate parseBirthDate(String birthDate) {
+    private long parseBirthDate(String birthDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        return LocalDate.parse(birthDate, formatter);
+        LocalDate localDate = LocalDate.parse(birthDate, formatter);  // Convert String to LocalDate
+        return localDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
     }
 
     public String describeAge() {
