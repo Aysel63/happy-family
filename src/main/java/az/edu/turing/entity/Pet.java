@@ -1,4 +1,4 @@
-package az.edu.turing.entities;
+package az.edu.turing.entity;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -37,6 +37,7 @@ public abstract class Pet {
     @Override
     protected void finalize() throws Throwable {
         System.out.println("Pet object is being removed: " + this.getNickname());
+        super.finalize();
 
     }
 

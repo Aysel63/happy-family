@@ -1,9 +1,9 @@
-package az.edu.turing.business;
+package az.edu.turing.service;
 
 import az.edu.turing.dao.FamilyDao;
-import az.edu.turing.entities.Family;
-import az.edu.turing.entities.Human;
-import az.edu.turing.entities.Pet;
+import az.edu.turing.entity.Family;
+import az.edu.turing.entity.Human;
+import az.edu.turing.entity.Pet;
 
 import java.util.*;
 import java.util.stream.Collectors;
