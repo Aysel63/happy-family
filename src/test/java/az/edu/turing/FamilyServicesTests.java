@@ -1,6 +1,6 @@
 package az.edu.turing;
 
-import az.edu.turing.business.FamilyService;
+import az.edu.turing.service.FamilyService;
 import az.edu.turing.dao.FamilyDao;
 import az.edu.turing.dao.impl.CollectionFamilyDao;
 import az.edu.turing.entity.Dog;
