@@ -1,7 +1,7 @@
 package az.edu.turing;
 
-import az.edu.turing.entities.Family;
-import az.edu.turing.entities.Human;
+import az.edu.turing.entity.Family;
+import az.edu.turing.entity.Human;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class FamilyTests {
+
     private Family family;
     private Human father;
     private Human mother;
@@ -16,10 +17,10 @@ public class FamilyTests {
 
     @BeforeEach
      void setup() {
-        father = new Human("Jack", "Johnson", 1975);
         mother = new Human("Anna", "Johnson", 1977);
+        father = new Human("Jack", "Johnson", 1975);
         child = new Human("Tom", "Johnson", 2005);
-        family = new Family(father, mother);
+        family = new Family(mother, father);
         family.addChild(child);
     }
 
@@ -59,10 +60,9 @@ public class FamilyTests {
                 "mother=Human{name='Anna', surname='Johnson', year=1977, iq=0, schedule=null}, " +
                 "father=Human{name='Jack', surname='Johnson', year=1975, iq=0, schedule=null}, " +
                 "children=[Human{name='Tom', surname='Johnson', year=2005, iq=0, schedule=null}], " +
-                "pet=null}";
+                "pet=[]}";
         assertEquals(expected, family.toString());
     }
-
 }
 
 

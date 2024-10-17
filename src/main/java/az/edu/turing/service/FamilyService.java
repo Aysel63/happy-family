@@ -1,11 +1,15 @@
-package az.edu.turing.business;
+package az.edu.turing.service;
 
 import az.edu.turing.dao.FamilyDao;
-import az.edu.turing.entities.Family;
-import az.edu.turing.entities.Human;
-import az.edu.turing.entities.Pet;
+import az.edu.turing.entity.Family;
+import az.edu.turing.entity.Human;
+import az.edu.turing.entity.Pet;
+import az.edu.turing.exception.BadRequestException;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class FamilyService {
@@ -48,9 +52,9 @@ public class FamilyService {
                 .collect(Collectors.toList());
     }
 
-    public Family createNewFamily(Human father, Human mother) {
-        if (father == null || mother == null) throw new NullPointerException("father and mother cannot be null");
-        Family family = new Family(father, mother);
+    public Family createNewFamily(Human mother, Human father) {
+        if (mother == null || father == null) throw new BadRequestException("father and mother cannot be null");
+        Family family = new Family(mother, father);
         familyDao.saveFamily(family);
         return family;
     }
@@ -96,7 +100,11 @@ public class FamilyService {
 
     public Set<Pet> getPets(int familyIndex) {
         Family family = getFamilyById(familyIndex);
-        return family.getPets();
+        if (family != null) {
+            Set<Pet> pets = family.getPets();
+            return new HashSet<>(pets);
+        }
+        return new HashSet<>();
     }
 
     public void addPet(int familyIndex, Pet pet) {

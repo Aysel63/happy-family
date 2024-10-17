@@ -1,27 +1,33 @@
 package az.edu.turing;
 
-import az.edu.turing.business.FamilyService;
 import az.edu.turing.controller.FamilyController;
 import az.edu.turing.dao.FamilyDao;
 import az.edu.turing.dao.impl.CollectionFamilyDao;
-import az.edu.turing.entities.*;
+import az.edu.turing.entity.Dog;
+import az.edu.turing.entity.DomesticCat;
+import az.edu.turing.entity.Family;
+import az.edu.turing.entity.Human;
+import az.edu.turing.entity.Man;
+import az.edu.turing.entity.Pet;
+import az.edu.turing.entity.Woman;
+import az.edu.turing.service.FamilyService;
 
 public class Main {
-    public static void main(String[] args) {
 
+    public static void main(String[] args) {
         FamilyDao familyDao = new CollectionFamilyDao();
         FamilyService familyService = new FamilyService(familyDao);
         FamilyController familyController = new FamilyController(familyService);
 
-        Human father1 = new Man("William", "Edwards", 1982);
         Human mother1 = new Woman("Charlotte", "Edwards", 1984);
-        Family family1 = familyController.createNewFamily(father1, mother1);
+        Human father1 = new Man("William", "Edwards", 1982);
+        Family family1 = familyController.createNewFamily(mother1, father1);
         familyController.bornChild(family1, "Henry", "Olivia");
         Pet pet1 = new Dog("Max");
         familyController.addPet(0, pet1);
 
-        Human father2 = new Man("Zaur", "Abdullayev", 1985);
         Human mother2 = new Woman("Nazrin", "Abdullayeva", 1986);
+        Human father2 = new Man("Zaur", "Abdullayev", 1985);
         Family family2 = familyController.createNewFamily(father2, mother2);
         familyController.bornChild(family2, "Davud", "Abdullayev");
         Human child2 = new Woman("Narmin", "Fataliyeva", 2007);

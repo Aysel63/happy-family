@@ -1,4 +1,4 @@
-package az.edu.turing.entities;
+package az.edu.turing.entity;
 
 import java.util.Map;
 
@@ -8,7 +8,7 @@ public class Woman extends Human {
         super(name, surname, year);
     }
 
-    public Woman(String name, String surname, int year, int iq, Map<DayOfWeek,String> schedule, Family family) {
+    public Woman(String name, String surname, int year, int iq, Map<String, String> schedule, Family family) {
         super(name, surname, year, iq, schedule, family);
     }
 
