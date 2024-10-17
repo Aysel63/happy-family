@@ -16,10 +16,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
     @BeforeEach
      void setup() {
-        father = new Human("Jack", "Johnson", 1975);
         mother = new Human("Anna", "Johnson", 1977);
+        father = new Human("Jack", "Johnson", 1975);
         child = new Human("Tom", "Johnson", 2005);
-        family = new Family(father, mother);
+        family = new Family(mother, father);
         family.addChild(child);
     }
 
@@ -62,7 +62,6 @@ import static org.junit.jupiter.api.Assertions.*;
                 "pet=[]}";
         assertEquals(expected, family.toString());
     }
-
 }
 
 
