@@ -1,9 +1,9 @@
 package az.edu.turing.controller;
 
 import az.edu.turing.business.FamilyService;
-import az.edu.turing.entities.Family;
-import az.edu.turing.entities.Human;
-import az.edu.turing.entities.Pet;
+import az.edu.turing.entity.Family;
+import az.edu.turing.entity.Human;
+import az.edu.turing.entity.Pet;
 
 import java.util.List;
 import java.util.Set;
@@ -36,8 +36,8 @@ public class FamilyController {
         return familyService.countFamiliesWithMemberNumber(numberOfPeople);
     }
 
-    public Family createNewFamily(Human father, Human mother) {
-        return familyService.createNewFamily(father, mother);
+    public Family createNewFamily(Human mother, Human father) {
+        return familyService.createNewFamily(mother, father);
     }
 
     public boolean deleteFamilyByIndex(int index) {

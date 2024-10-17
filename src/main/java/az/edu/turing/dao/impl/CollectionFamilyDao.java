@@ -1,7 +1,7 @@
 package az.edu.turing.dao.impl;
 
 import az.edu.turing.dao.FamilyDao;
-import az.edu.turing.entities.Family;
+import az.edu.turing.entity.Family;
 
 import java.util.ArrayList;
 import java.util.List;

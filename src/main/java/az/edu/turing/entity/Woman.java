@@ -1,4 +1,4 @@
-package az.edu.turing.entities;
+package az.edu.turing.entity;
 
 import java.util.Map;
 
