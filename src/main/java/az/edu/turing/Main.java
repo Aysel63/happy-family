@@ -4,9 +4,16 @@ import az.edu.turing.service.FamilyService;
 import az.edu.turing.controller.FamilyController;
 import az.edu.turing.dao.FamilyDao;
 import az.edu.turing.dao.impl.CollectionFamilyDao;
-import az.edu.turing.service.FamilyService;
+import az.edu.turing.entity.Dog;
+import az.edu.turing.entity.DomesticCat;
+import az.edu.turing.entity.Family;
+import az.edu.turing.entity.Human;
+import az.edu.turing.entity.Man;
+import az.edu.turing.entity.Pet;
+import az.edu.turing.entity.Woman;
 
 public class Main {
+
     public static void main(String[] args) {
 
         FamilyDao familyDao = new CollectionFamilyDao();
