@@ -1,9 +1,10 @@
-package az.edu.turing.business;
+package az.edu.turing.service;
 
 import az.edu.turing.dao.FamilyDao;
 import az.edu.turing.entity.Family;
 import az.edu.turing.entity.Human;
 import az.edu.turing.entity.Pet;
+import az.edu.turing.exception.BadRequestException;
 
 import java.util.Calendar;
 import java.util.HashSet;
@@ -52,7 +53,7 @@ public class FamilyService {
     }
 
     public Family createNewFamily(Human mother, Human father) {
-        if (mother == null || father == null) throw new NullPointerException("father and mother cannot be null");
+        if (mother == null || father == null) throw new BadRequestException("father and mother cannot be null");
         Family family = new Family(mother, father);
         familyDao.saveFamily(family);
         return family;
