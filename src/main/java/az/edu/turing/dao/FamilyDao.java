@@ -1,6 +1,6 @@
 package az.edu.turing.dao;
 
-import az.edu.turing.entities.Family;
+import az.edu.turing.entity.Family;
 
 import java.util.List;
 

@@ -1,9 +1,9 @@
 package az.edu.turing.controller;
 
-import az.edu.turing.business.FamilyService;
-import az.edu.turing.entities.Family;
-import az.edu.turing.entities.Human;
-import az.edu.turing.entities.Pet;
+import az.edu.turing.service.FamilyService;
+import az.edu.turing.entity.Family;
+import az.edu.turing.entity.Human;
+import az.edu.turing.entity.Pet;
 
 import java.util.List;
 import java.util.Set;
