@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-
 import java.util.Random;
 
 ;
@@ -39,8 +38,6 @@ public class Family implements HumanCreator {
 
         father.setFamily(this);
         mother.setFamily(this);
-
-        this.children = new ArrayList<>();
     }
 
     public Family(Human mother, Human father, Set<Pet> pets) {
