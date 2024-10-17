@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-
 import java.util.Random;
 
 ;
@@ -28,22 +27,22 @@ public class Family implements HumanCreator {
 
 
     public Family() {
+        this.children = new ArrayList<>();
+        this.pets = new HashSet<>();
     }
 
-    public Family(Human father, Human mother) {
+    public Family(Human mother, Human father) {
+        this();
         this.father = father;
         this.mother = mother;
 
         father.setFamily(this);
         mother.setFamily(this);
-
-        this.children = new ArrayList<>();
     }
 
     public Family(Human mother, Human father, Set<Pet> pets) {
-        this.pets = pets != null ? pets : new HashSet<>();
-        this.mother = mother;
-        this.father = father;
+        this(mother, father);
+        this.pets = pets;
     }
 
     public Human addChild(Human child) {

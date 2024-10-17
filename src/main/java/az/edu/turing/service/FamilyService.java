@@ -51,9 +51,9 @@ public class FamilyService {
                 .collect(Collectors.toList());
     }
 
-    public Family createNewFamily(Human father, Human mother) {
-        if (father == null || mother == null) throw new NullPointerException("father and mother cannot be null");
-        Family family = new Family(father, mother);
+    public Family createNewFamily(Human mother, Human father) {
+        if (mother == null || father == null) throw new NullPointerException("father and mother cannot be null");
+        Family family = new Family(mother, father);
         familyDao.saveFamily(family);
         return family;
     }
@@ -101,7 +101,7 @@ public class FamilyService {
         Family family = getFamilyById(familyIndex);
         if (family != null) {
             Set<Pet> pets = family.getPets();
-            return pets != null ? new HashSet<>(pets) : new HashSet<>();
+            return new HashSet<>(pets);
         }
         return new HashSet<>();
     }

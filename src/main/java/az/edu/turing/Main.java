@@ -13,15 +13,15 @@ public class Main {
         FamilyService familyService = new FamilyService(familyDao);
         FamilyController familyController = new FamilyController(familyService);
 
-        Human father1 = new Man("William", "Edwards", 1982);
         Human mother1 = new Woman("Charlotte", "Edwards", 1984);
-        Family family1 = familyController.createNewFamily(father1, mother1);
+        Human father1 = new Man("William", "Edwards", 1982);
+        Family family1 = familyController.createNewFamily(mother1, father1);
         familyController.bornChild(family1, "Henry", "Olivia");
         Pet pet1 = new Dog("Max");
         familyController.addPet(0, pet1);
 
-        Human father2 = new Man("Zaur", "Abdullayev", 1985);
         Human mother2 = new Woman("Nazrin", "Abdullayeva", 1986);
+        Human father2 = new Man("Zaur", "Abdullayev", 1985);
         Family family2 = familyController.createNewFamily(father2, mother2);
         familyController.bornChild(family2, "Davud", "Abdullayev");
         Human child2 = new Woman("Narmin", "Fataliyeva", 2007);
