@@ -6,6 +6,7 @@ import az.edu.turing.entity.Human;
 import az.edu.turing.entity.Pet;
 import az.edu.turing.exception.BadRequestException;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
@@ -65,8 +66,7 @@ public class FamilyService {
 
     public Family bornChild(Family family, String masculineName, String feminineName) {
         String childName = (Math.random() < 0.5) ? masculineName : feminineName;
-        long birthYear = Calendar.getInstance().get(Calendar.YEAR);
-        Human child = new Human(childName, family.getFather().getSurname(), birthYear);
+        Human child = new Human(childName, family.getFather().getSurname(), LocalDate.now());
         family.addChild(child);
         familyDao.saveFamily(family);
         return family;

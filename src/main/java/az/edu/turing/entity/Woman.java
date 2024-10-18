@@ -1,15 +1,16 @@
 package az.edu.turing.entity;
 
+import java.time.LocalDate;
 import java.util.Map;
 
 public class Woman extends Human {
 
-    public Woman(String name, String surname, int year) {
-        super(name, surname, year);
+    public Woman(String name, String surname, LocalDate birthDate) {
+        super(name, surname, birthDate);
     }
 
-    public Woman(String name, String surname, int year, int iq, Map<String, String> schedule, Family family) {
-        super(name, surname, year, iq, schedule, family);
+    public Woman(String name, String surname, LocalDate birthDate, int iq, Map<String, String> schedule, Family family) {
+        super(name, surname, birthDate, iq, schedule, family);
     }
 
     @Override
