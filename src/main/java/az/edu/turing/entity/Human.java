@@ -13,19 +13,18 @@ public class Human {
 
     private String name;
     private String surname;
-    private long birthDate;
+    private LocalDate birthDate;
     private int iq;
     private Map<String, String> schedule;
     private Family family;
 
-
-    public Human(String name, String surname, long birthDate) {
+    public Human(String name, String surname, LocalDate birthDate) {
         this.name = name;
         this.surname = surname;
         this.birthDate = birthDate;
     }
 
-    public Human(String name, String surname, long birthDate, int iq, Map<String, String> schedule, Family family) {
+    public Human(String name, String surname, LocalDate birthDate, int iq, Map<String, String> schedule, Family family) {
         this.name = name;
         this.surname = surname;
         this.birthDate = birthDate;
@@ -41,20 +40,23 @@ public class Human {
         this.iq = iq;
     }
 
-    private long parseBirthDate(String birthDate) {
+    public Human(String name, String surname, long birthDate) {
+        this.name = name;
+        this.surname = surname;
+        this.birthDate = LocalDate.ofEpochDay(birthDate);
+    }
+
+
+    private LocalDate parseBirthDate(String birthDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate localDate = LocalDate.parse(birthDate, formatter);  
-        return localDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
+        return LocalDate.parse(birthDate, formatter);
     }
 
     public String describeAge() {
-        LocalDate birthDateLocal = LocalDate.ofEpochDay(birthDate);
         LocalDate currentDate = LocalDate.now();
-
-        Period age = Period.between(birthDateLocal, currentDate);
+        Period age = Period.between(birthDate, currentDate);
         return String.format("%d years, %d months, and %d days", age.getYears(), age.getMonths(), age.getDays());
     }
-
 
     public String greetPets() {
         List<String> petNickNames = family.getPets().stream().map(Pet::getNickname).collect(Collectors.toList());
@@ -75,9 +77,7 @@ public class Human {
     @Override
     protected void finalize() throws Throwable {
         System.out.println("Human object is being removed: " + this.getName() + " " + this.getSurname());
-
     }
-
 
     public String getName() {
         return name;
@@ -95,11 +95,11 @@ public class Human {
         this.surname = surname;
     }
 
-    public long getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(long birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
@@ -132,7 +132,7 @@ public class Human {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         Human human = (Human) object;
-        return birthDate == human.birthDate && Objects.equals(name, human.name) && Objects.equals(surname, human.surname) && Objects.equals(family, human.family);
+        return Objects.equals(birthDate, human.birthDate) && Objects.equals(name, human.name) && Objects.equals(surname, human.surname) && Objects.equals(family, human.family);
     }
 
     @Override
@@ -142,13 +142,13 @@ public class Human {
 
     @Override
     public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return "Human{" +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", year=" + birthDate +
+                ", birthDate=" + birthDate.format(formatter) +
                 ", iq=" + iq +
                 ", schedule=" + schedule +
                 '}';
     }
 }
-

@@ -6,6 +6,7 @@ import az.edu.turing.entity.Human;
 import az.edu.turing.entity.Pet;
 import az.edu.turing.exception.BadRequestException;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
@@ -78,14 +79,15 @@ public class FamilyService {
         return family;
     }
 
-    public void deleteAllChildrenOlderThen(int age) {
-        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+    public void deleteAllChildrenOlderThan(int age) {
+        int currentYear = LocalDate.now().getYear();
         List<Family> allFamilies = familyDao.getAllFamilies();
         allFamilies.forEach(family -> {
-            family.getChildren().removeIf(child -> (currentYear - child.getBirthDate()) > age);
+            family.getChildren().removeIf(child -> (currentYear - child.getBirthDate().getYear()) > age);
             familyDao.saveFamily(family);
         });
     }
+
 
     public int count() {
         return familyDao.getAllFamilies().size();
