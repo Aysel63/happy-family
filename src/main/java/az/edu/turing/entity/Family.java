@@ -8,6 +8,7 @@ import java.util.Set;
 
 import java.util.Random;
 
+
 public class Family implements HumanCreator {
 
     private Human mother;
@@ -144,4 +145,11 @@ public class Family implements HumanCreator {
         addChild(child);
         return child;
     }
+
+    @Override
+    protected void finalize() throws Throwable {
+        System.out.println("Family object is being removed: " + this);
+
+    }
+
 }
