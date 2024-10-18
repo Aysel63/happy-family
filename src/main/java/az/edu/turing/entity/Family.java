@@ -8,7 +8,6 @@ import java.util.Set;
 
 import java.util.Random;
 
-;
 
 public class Family implements HumanCreator {
 

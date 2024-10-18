@@ -43,7 +43,7 @@ public class Human {
 
     private long parseBirthDate(String birthDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate localDate = LocalDate.parse(birthDate, formatter);  // Convert String to LocalDate
+        LocalDate localDate = LocalDate.parse(birthDate, formatter);  
         return localDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
     }
 
@@ -54,6 +54,7 @@ public class Human {
         Period age = Period.between(birthDateLocal, currentDate);
         return String.format("%d years, %d months, and %d days", age.getYears(), age.getMonths(), age.getDays());
     }
+
 
     public String greetPets() {
         List<String> petNickNames = family.getPets().stream().map(Pet::getNickname).collect(Collectors.toList());
