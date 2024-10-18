@@ -1,5 +1,6 @@
 package az.edu.turing.entity;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -137,9 +138,9 @@ public class Family implements HumanCreator {
 
         Human child;
         if (isBoy) {
-            child = new Man(name, father.getName(), 2024, averageIq, null, this);
+            child = new Man(name, father.getName(), LocalDate.now(), averageIq, null, this);
         } else {
-            child = new Woman(name, father.getName(), 2024, averageIq, null, this);
+            child = new Woman(name, father.getName(), LocalDate.now(), averageIq, null, this);
         }
 
         addChild(child);

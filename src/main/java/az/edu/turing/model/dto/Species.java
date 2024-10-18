@@ -1,4 +1,4 @@
-package az.edu.turing.entity;
+package az.edu.turing.model.dto;
 
 
 public enum Species {

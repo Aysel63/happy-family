@@ -1,5 +1,6 @@
 package az.edu.turing.entity;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
@@ -18,33 +19,21 @@ public class Human {
     private Map<String, String> schedule;
     private Family family;
 
-
-    public Human(String name, String surname, long birthDate) {
+    public Human(String name, String surname, LocalDate birthDate) {
         this.name = name;
         this.surname = surname;
-        this.birthDate = birthDate;
+        this.birthDate = parseBirthDate(birthDate);
     }
 
-    public Human(String name, String surname, long birthDate, int iq, Map<String, String> schedule, Family family) {
-        this.name = name;
-        this.surname = surname;
-        this.birthDate = birthDate;
+    public Human(String name, String surname, LocalDate birthDate, int iq, Map<String, String> schedule, Family family) {
+        this(name, surname, birthDate);
         this.iq = iq;
         this.schedule = schedule;
         this.family = family;
     }
 
-    public Human(String name, String surname, String birthDate, int iq) {
-        this.name = name;
-        this.surname = surname;
-        this.birthDate = parseBirthDate(birthDate);
-        this.iq = iq;
-    }
-
-    private long parseBirthDate(String birthDate) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate localDate = LocalDate.parse(birthDate, formatter);  
-        return localDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
+    private long parseBirthDate(LocalDate birthDate) {
+        return birthDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
     }
 
     public String describeAge() {
@@ -143,7 +132,10 @@ public class Human {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate birthDateLocal = LocalDate.ofEpochDay(birthDate);
+        LocalDate birthDateLocal = Instant
+                .ofEpochMilli(birthDate)
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
         String formattedBirthDate = birthDateLocal.format(formatter);
 
         return "Human{" +
