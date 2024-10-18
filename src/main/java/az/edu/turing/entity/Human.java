@@ -29,6 +29,13 @@ public class Human {
         this.birthDate = parseBirthDate(birthDate);
     }
 
+    public Human(String name, String surname, String birthDate, int iq) {
+        this.name = name;
+        this.surname = surname;
+        this.birthDate = parseBirthDate(LocalDate.parse(birthDate));
+        this.iq = iq;
+    }
+
     public Human(String name, String surname, LocalDate birthDate, int iq, Map<String, String> schedule, Family family) {
         this(name, surname, birthDate);
         this.iq = iq;
