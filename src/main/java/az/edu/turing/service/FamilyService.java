@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class FamilyService {
 
@@ -27,9 +28,7 @@ public class FamilyService {
 
     public void displayAllFamilies() {
         List<Family> families = getAllFamilies();
-        for (int i = 0; i < families.size(); i++) {
-            System.out.println(i + 1 + ". " + families.get(i));
-        }
+        IntStream.range(0, families.size()).forEach(i -> System.out.println((i + 1) + ". " + families.get(i)));
     }
 
     public List<Family> getFamiliesBiggerThan(int numberOfPeople) {
