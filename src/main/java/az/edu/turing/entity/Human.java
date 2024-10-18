@@ -142,13 +142,18 @@ public class Human {
 
     @Override
     public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate birthDateLocal = LocalDate.ofEpochDay(birthDate);
+        String formattedBirthDate = birthDateLocal.format(formatter);
+
         return "Human{" +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", year=" + birthDate +
+                ", birthDate=" + formattedBirthDate +
                 ", iq=" + iq +
                 ", schedule=" + schedule +
                 '}';
     }
+
 }
 
