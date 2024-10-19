@@ -1,6 +1,7 @@
 package az.edu.turing.service;
 
 import az.edu.turing.dao.FamilyDao;
+import az.edu.turing.model.DataUtils;
 import az.edu.turing.entity.Family;
 import az.edu.turing.entity.Human;
 import az.edu.turing.entity.Pet;
@@ -10,11 +11,11 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
-import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class FamilyService {
 
@@ -30,9 +31,7 @@ public class FamilyService {
 
     public void displayAllFamilies() {
         List<Family> families = getAllFamilies();
-        for (int i = 0; i < families.size(); i++) {
-            System.out.println(i + 1 + ". " + families.get(i));
-        }
+        IntStream.range(0, families.size()).forEach(i -> System.out.println((i + 1) + ". " + families.get(i)));
     }
 
     public List<Family> getFamiliesBiggerThan(int numberOfPeople) {
@@ -69,7 +68,7 @@ public class FamilyService {
 
     public Family bornChild(Family family, String masculineName, String feminineName) {
         String childName = (Math.random() < 0.5) ? masculineName : feminineName;
-        Human child = new Human(childName, family.getFather().getSurname(), LocalDate.now());
+        Human child = new Human(childName, family.getFather().getSurname(), LocalDate.now().format(DataUtils.birthDateFormatter));
         family.addChild(child);
         familyDao.saveFamily(family);
         return family;
