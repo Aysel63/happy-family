@@ -1,7 +1,4 @@
 package az.edu.turing.entity;
-
-import az.edu.turing.entity.Pet;
-
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.Period;
@@ -11,8 +8,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+
 
 public class Human {
 
@@ -56,7 +52,7 @@ public class Human {
     }
 
     public String greetPets() {
-        List<String>petNickNames=family.getPets().stream().map(Pet::getNickname).colllect(Collectors.toList());
+        List<String>petNickNames=family.getPets().stream().map(Pet::getNickname).collect(Collectors.toList());
         String result=String.join(", ",petNickNames);
         return "Hello, " + result + ".";
     }

@@ -6,7 +6,10 @@ import az.edu.turing.entity.Human;
 import az.edu.turing.entity.Pet;
 import az.edu.turing.exception.BadRequestException;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
@@ -79,12 +82,17 @@ public class FamilyService {
     }
 
     public void deleteAllChildrenOlderThen(int age) {
-        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
         List<Family> allFamilies = familyDao.getAllFamilies();
         allFamilies.forEach(family -> {
-            family.getChildren().removeIf(child -> (currentYear - child.getBirthDate()) > age);
+            family.getChildren().removeIf(child -> {
+                LocalDate birthDate = Instant.ofEpochMilli(child.getBirthDate()).atZone(ZoneId.systemDefault()).toLocalDate();
+                int childAge = Period.between(birthDate, LocalDate.now()).getYears();
+                return childAge > age;
+            });
+
             familyDao.saveFamily(family);
         });
+
     }
 
     public int count() {
@@ -110,9 +118,6 @@ public class FamilyService {
     public void addPet(int familyIndex, Pet pet) {
         Family family = getFamilyById(familyIndex);
         Set<Pet> pets = family.getPets();
-        if (pets == null) {
-            pets = new HashSet<>();
-        }
         pets.add(pet);
         family.setPets(pets);
         familyDao.saveFamily(family);

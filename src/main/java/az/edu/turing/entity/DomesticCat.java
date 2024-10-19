@@ -1,6 +1,6 @@
 package az.edu.turing.entity;
 
-import az.edu.turing.model.dto.Species;
+import az.edu.turing.model.Species;
 
 import java.util.Set;
 
@@ -24,14 +24,5 @@ public class DomesticCat extends Pet implements Foulable {
         return "Meow! I am a domestic cat.";
     }
 
-    public DomesticCat() {
-    }
 
-    public DomesticCat(Species species, String nickname) {
-        super(species, nickname);
-    }
-
-    public DomesticCat(Species species, String nickname, int age, int trickLevel, String[] habits) {
-        super(species, nickname, age, trickLevel, habits);
-    }
 }

@@ -151,6 +151,7 @@ public class Family implements HumanCreator {
     @Override
     protected void finalize() throws Throwable {
         System.out.println("Family object is being removed: " + this);
+        super.finalize();
 
     }
 

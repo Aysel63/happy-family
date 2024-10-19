@@ -20,7 +20,7 @@ public class CollectionFamilyDao implements FamilyDao {
     }
 
     @Override
-    public Family getFamilyByIndex(int index) {
+    public Family getFamilyByIndex(final int index) {
         if (index < 0 || index >= families.size()) {
             return null;
         }
@@ -28,7 +28,7 @@ public class CollectionFamilyDao implements FamilyDao {
     }
 
     @Override
-    public boolean deleteFamily(int index) {
+    public boolean deleteFamily(final int index) {
         if (index < 0 || index >= families.size()) {
             return false;
         }
@@ -44,7 +44,7 @@ public class CollectionFamilyDao implements FamilyDao {
     @Override
     public void saveFamily(Family family) {
         int index = families.indexOf(family);
-        if (index >= 0) {
+        if (index !=-1) {
             families.set(index, family);
         } else {
             families.add(family);
