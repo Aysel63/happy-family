@@ -67,7 +67,9 @@ public class FamilyService {
     }
 
     public Family bornChild(Family family, String masculineName, String feminineName) {
-        String childName = (Math.random() < 0.5) ? masculineName : feminineName;
+        boolean isBoy=Math.random()<0.5;
+        String childName=isBoy? masculineName:feminineName;
+        String gender=isBoy?"Boy":"Girl";
         Human child = new Human(childName, family.getFather().getSurname(), LocalDate.now().format(DataUtils.birthDateFormatter));
         family.addChild(child);
         familyDao.saveFamily(family);
