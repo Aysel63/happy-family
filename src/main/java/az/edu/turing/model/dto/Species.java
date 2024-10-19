@@ -1,4 +1,4 @@
-package az.edu.turing.Entities;
+package az.edu.turing.model.dto;
 
 
 public enum Species {
@@ -9,7 +9,7 @@ public enum Species {
     BIRD(true, 2, false),
     HAMSTER(false, 4, true),
     RABBIT(false, 4, true),
-    UNKNOWN (false, 0, false);
+    UNKNOWN(false, 0, false);
 
     private final boolean canFly;
     private final int numberOfLegs;

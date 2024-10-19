@@ -1,4 +1,6 @@
-package az.edu.turing.Entities;
+package az.edu.turing.entity;
+
+import az.edu.turing.model.dto.Species;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -6,11 +8,11 @@ import java.util.Set;
 
 public abstract class Pet {
 
-    private Species species;
-    private String nickname;
-    private int age;
-    private int trickLevel;
-    private Set<String> habits;
+    protected Species species;
+    protected String nickname;
+    protected int age;
+    protected int trickLevel;
+   protected Set<String> habits;
 
    protected  Pet() {
     }
@@ -23,6 +25,10 @@ public abstract class Pet {
     protected Pet(Species species, String nickname, int age, int trickLevel, Set<String> habits) {
         this.species = species;
         this.nickname = nickname;
+    }
+
+    protected Pet(Species species, String nickname, int age, int trickLevel, Set<String> habits) {
+        this(species, nickname);
         this.age = age;
         this.trickLevel = trickLevel;
         this.habits = habits;
@@ -34,6 +40,12 @@ public abstract class Pet {
     }
 
     public abstract String respond();
+
+    @Override
+    protected void finalize() throws Throwable {
+        System.out.println("Pet object is being removed: " + this.getNickname());
+
+    }
 
 
     @Override
@@ -56,7 +68,7 @@ public abstract class Pet {
                 "nickname='" + nickname + '\'' +
                 ", age=" + age +
                 ", trickLevel=" + trickLevel +
-                ", habits=" + (habits != null ? String.join(", ", habits) : "no habits") +
+                ", habits=" + habits +
                 '}';
     }
 

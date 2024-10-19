@@ -1,4 +1,6 @@
-package az.edu.turing.Entities;
+package az.edu.turing.entity;
+
+import az.edu.turing.model.dto.Species;
 
 import java.util.Set;
 
@@ -14,7 +16,7 @@ public class RobotCat extends Pet {
 
     @Override
     public String respond() {
-        return "Beep! I am a RoboCat.";
+        return "Beep! I am a RobotCat.";
     }
 
 }

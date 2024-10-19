@@ -1,10 +1,12 @@
 package az.edu.turing;
 
-import az.edu.turing.Entities.Family;
-import az.edu.turing.Entities.Human;
+import az.edu.turing.entity.Family;
+import az.edu.turing.entity.Human;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,10 +18,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
     @BeforeEach
      void setup() {
-        father = new Human("Jack", "Johnson", 1975);
-        mother = new Human("Anna", "Johnson", 1977);
-        child = new Human("Tom", "Johnson", 2005);
-        family = new Family(father, mother);
+        mother = new Human("Anna", "Johnson", LocalDate.parse("1977-10-18"));
+        father = new Human("Jack", "Johnson", LocalDate.parse("1975-10-18"));
+        child = new Human("Tom", "Johnson", LocalDate.parse("2005-10-18"));
+        family = new Family(mother, father);
         family.addChild(child);
     }
 
@@ -32,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
     @Test
     void deleteChild_ChildNotFound() {
-        Human nonExistentChild = new Human("Carl", "Williams", 2000);
+        Human nonExistentChild = new Human("Carl", "Williams", LocalDate.parse("2000-10-18"));
         boolean result = family.deleteChild(nonExistentChild);
         assertFalse(result);
         assertEquals(1, family.getChildren().size());
@@ -56,13 +58,12 @@ import static org.junit.jupiter.api.Assertions.*;
     @Test
     void testToString() {
         String expected = "Family{" +
-                "mother=Human{name='Anna', surname='Johnson', year=1977, iq=0, schedule=null}, " +
-                "father=Human{name='Jack', surname='Johnson', year=1975, iq=0, schedule=null}, " +
-                "children=[Human{name='Tom', surname='Johnson', year=2005, iq=0, schedule=null}], " +
-                "pet=null}";
+                "mother=Human{name='Anna', surname='Johnson', birthDate=18/10/1977, iq=0, schedule=null}, " +
+                "father=Human{name='Jack', surname='Johnson', birthDate=18/10/1975, iq=0, schedule=null}, " +
+                "children=[Human{name='Tom', surname='Johnson', birthDate=18/10/2005, iq=0, schedule=null}], " +
+                "pet=[]}";
         assertEquals(expected, family.toString());
     }
-
 }
 
 

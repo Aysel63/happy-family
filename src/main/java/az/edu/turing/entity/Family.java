@@ -1,12 +1,21 @@
-package az.edu.turing.Entities;
+package az.edu.turing.entity;
 
-import java.util.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+
+import java.util.Random;
+
+;
 
 public class Family implements HumanCreator {
 
     private Human mother;
     private Human father;
-    private Human[] children;
+    private List<Human> children;
     private Set<Pet> pets;
 
     static {
@@ -17,19 +26,24 @@ public class Family implements HumanCreator {
         System.out.println("A new family object is being created");
     }
 
+
     public Family() {
-    }
-
-    public Family(Human father, Human mother) {
-        this.father = father;
-        this.mother = mother;
         this.children = new ArrayList<>();
+        this.pets = new HashSet<>();
     }
 
-    public Family(Pet pet, Human mother, Human father) {
-        this.pet = pet;
-        this.mother = mother;
+    public Family(Human mother, Human father) {
+        this();
         this.father = father;
+        this.mother = mother;
+
+        father.setFamily(this);
+        mother.setFamily(this);
+    }
+
+    public Family(Human mother, Human father, Set<Pet> pets) {
+        this(mother, father);
+        this.pets = pets;
     }
 
     public Human addChild(Human child) {
@@ -107,7 +121,7 @@ public class Family implements HumanCreator {
                 "mother=" + mother +
                 ", father=" + father +
                 ", children=" + children.toString() +
-                ", pet=" + pet +
+                ", pet=" + pets +
                 '}';
     }
 
@@ -125,12 +139,19 @@ public class Family implements HumanCreator {
 
         Human child;
         if (isBoy) {
-            child = new Man(name, father.getName(), 2024, averageIq, null, this);
+            child = new Man(name, father.getName(), LocalDate.now(), averageIq, null, this);
         } else {
-            child = new Woman(name, father.getName(), 2024, averageIq, null, this);
+            child = new Woman(name, father.getName(), LocalDate.now(), averageIq, null, this);
         }
 
         addChild(child);
         return child;
     }
+
+    @Override
+    protected void finalize() throws Throwable {
+        System.out.println("Family object is being removed: " + this);
+
+    }
+
 }

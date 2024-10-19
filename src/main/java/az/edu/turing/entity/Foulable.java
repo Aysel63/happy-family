@@ -1,4 +1,4 @@
-package az.edu.turing.Entities;
+package az.edu.turing.entity;
 
 public interface Foulable {
     String foul();
