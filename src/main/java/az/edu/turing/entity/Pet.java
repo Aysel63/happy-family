@@ -12,9 +12,9 @@ public abstract class Pet {
     protected String nickname;
     protected int age;
     protected int trickLevel;
-   protected Set<String> habits;
+    protected Set<String> habits;
 
-   protected  Pet() {
+    protected Pet() {
     }
 
     protected Pet(Species species, String nickname) {
@@ -107,6 +107,11 @@ public abstract class Pet {
 
     public void setHabits(Set<String> habits) {
         this.habits = habits;
+    }
+
+    public String prettyFormat() {
+        return String.format("{species=%s, nickname='%s', age=%d, trickLevel=%d, habits=%s}",
+                species, nickname, age, trickLevel, habits);
     }
 }
 
