@@ -33,8 +33,9 @@ public class FamilyService {
 
     public void displayAllFamilies() {
         List<Family> families = getAllFamilies();
-        IntStream.range(0, families.size()).forEach(i -> System.out.println((i + 1) + ". " + families.get(i)));
-    }
+        for (Family family : families) {
+            System.out.println(family.prettyFormat());
+        }    }
 
     public List<Family> getFamiliesBiggerThan(int numberOfPeople) {
         return getAllFamilies()
