@@ -22,18 +22,18 @@ public class Main {
         FamilyService familyService = new FamilyService(familyDao);
         FamilyController familyController = new FamilyController(familyService);
 
-        Human mother1 = new Woman("Charlotte", "Edwards", LocalDate.parse("1984-10-18"));
-        Human father1 = new Man("William", "Edwards", LocalDate.parse("1982-10-18"));
+        Human mother1 = new Woman("Charlotte", "Edwards", "18/10/1984");
+        Human father1 = new Man("William", "Edwards", "18/10/1984");
         Family family1 = familyController.createNewFamily(mother1, father1);
         familyController.bornChild(family1, "Henry", "Olivia");
         Pet pet1 = new Dog("Max");
         familyController.addPet(0, pet1);
 
-        Human mother2 = new Woman("Nazrin", "Abdullayeva", LocalDate.parse("1986-10-18"));
-        Human father2 = new Man("Zaur", "Abdullayev", LocalDate.parse("1984-10-18"));
+        Human mother2 = new Woman("Nazrin", "Abdullayeva", "18/10/1984");
+        Human father2 = new Man("Zaur", "Abdullayev", "18/10/1984");
         Family family2 = familyController.createNewFamily(mother2, father2);
         familyController.bornChild(family2, "Davud", "Sona");
-        Human child2 = new Woman("Narmin", "Fataliyeva", LocalDate.parse("2007-10-18"));
+        Human child2 = new Woman("Narmin", "Fataliyeva", "18/10/2007");
         familyController.adoptChild(family2, child2);
         Pet pet2 = new DomesticCat("Masdan");
         familyController.addPet(1, pet2);

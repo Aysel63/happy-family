@@ -5,22 +5,19 @@ import az.edu.turing.entity.Human;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
-import java.time.LocalDate;
-
 import static org.junit.jupiter.api.Assertions.*;
 
- class FamilyTests {
+class FamilyTests {
     private Family family;
     private Human father;
     private Human mother;
     private Human child;
 
     @BeforeEach
-     void setup() {
-        mother = new Human("Anna", "Johnson", LocalDate.parse("1977-10-18"));
-        father = new Human("Jack", "Johnson", LocalDate.parse("1975-10-18"));
-        child = new Human("Tom", "Johnson", LocalDate.parse("2005-10-18"));
+    void setup() {
+        mother = new Human("Anna", "Johnson", "18/10/1977");
+        father = new Human("Jack", "Johnson", "18/10/1975");
+        child = new Human("Tom", "Johnson", "18/10/2005");
         family = new Family(mother, father);
         family.addChild(child);
     }
@@ -34,11 +31,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
     @Test
     void deleteChild_ChildNotFound() {
-        Human nonExistentChild = new Human("Carl", "Williams", LocalDate.parse("2000-10-18"));
+        Human nonExistentChild = new Human("Carl", "Williams", "18/10/2000");
         boolean result = family.deleteChild(nonExistentChild);
         assertFalse(result);
         assertEquals(1, family.getChildren().size());
-
     }
 
     @Test
@@ -65,5 +61,3 @@ import static org.junit.jupiter.api.Assertions.*;
         assertEquals(expected, family.toString());
     }
 }
-
-
