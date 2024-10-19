@@ -126,11 +126,12 @@ public class FamilyServicesTests {
     void testDeleteAllChildrenOlderThen() {
         Family family = new Family(new Human("Jane", "Johnson", LocalDate.parse("1977-10-18")), new Human("Tomas", "Johnson", LocalDate.parse("1977-10-18")));
         family.addChild(new Human("Alex", "Johnson", LocalDate.parse("2000-10-18")));
-        family.addChild(new Human("Alice", "Johnson", LocalDate.parse("1977-10-18")));
+        family.addChild(new Human("Alice", "Johnson", LocalDate.parse("2008-10-18")));
         familyDao.saveFamily(family);
 
-        familyService.deleteAllChildrenOlderThen(18);
+        familyService.deleteAllChildrenOlderThen(19);
         assertEquals(1, family.getChildren().size());
+
     }
 
     @Test

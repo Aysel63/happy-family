@@ -1,6 +1,6 @@
 package az.edu.turing.entity;
 
-import az.edu.turing.model.dto.Species;
+import az.edu.turing.model.Species;
 
 import java.util.Set;
 
