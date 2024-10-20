@@ -9,6 +9,10 @@ public class Woman extends Human {
         super(name, surname, birthDate);
     }
 
+    public Woman(String name, String surname, String birthDate, int iq) {
+        super(name, surname, birthDate, iq);
+    }
+
     public Woman(String name, String surname, String birthDate, int iq, Map<String, String> schedule, Family family) {
         super(name, surname, birthDate, iq, schedule, family);
     }

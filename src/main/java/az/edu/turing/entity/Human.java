@@ -29,15 +29,12 @@ public class Human {
     }
 
     public Human(String name, String surname, String birthDate, int iq) {
-        this.name = name;
-        this.surname = surname;
-        this.birthDateMillis = parseBirthDate(birthDate);
+        this(name , surname , birthDate);
         this.iq = iq;
     }
 
     public Human(String name, String surname, String birthDate, int iq, Map<String, String> schedule, Family family) {
-        this(name, surname, birthDate);
-        this.iq = iq;
+        this(name , surname , birthDate , iq);
         this.schedule = schedule;
         this.family = family;
     }

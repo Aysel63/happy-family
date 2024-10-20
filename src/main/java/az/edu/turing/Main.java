@@ -12,8 +12,6 @@ import az.edu.turing.entity.Man;
 import az.edu.turing.entity.Pet;
 import az.edu.turing.entity.Woman;
 
-import java.time.LocalDate;
-
 public class Main {
 
     public static void main(String[] args) {
@@ -54,7 +52,8 @@ public class Main {
 //        System.out.println();
 //
 //        familyController.deleteFamilyByIndex(0);
+        Console app = new Console();
+        app.start();
 
-        familyController.displayAllFamilies();
     }
 }
