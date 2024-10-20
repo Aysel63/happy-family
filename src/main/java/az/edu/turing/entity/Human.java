@@ -128,12 +128,12 @@ public class Human {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         Human human = (Human) object;
-        return birthDateMillis == human.birthDateMillis && Objects.equals(name, human.name) && Objects.equals(surname, human.surname) && Objects.equals(family, human.family);
+        return birthDateMillis == human.birthDateMillis && iq == human.iq && Objects.equals(name, human.name) && Objects.equals(surname, human.surname);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, surname, birthDateMillis, family);
+        return Objects.hash(name, surname, birthDateMillis, iq);
     }
 
     @Override

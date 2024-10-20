@@ -44,7 +44,7 @@ public class CollectionFamilyDao implements FamilyDao {
     @Override
     public void saveFamily(Family family) {
         int index = families.indexOf(family);
-        if (index !=-1) {
+        if (index != -1) {
             families.set(index, family);
         } else {
             families.add(family);
