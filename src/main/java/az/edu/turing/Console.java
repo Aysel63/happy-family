@@ -65,6 +65,7 @@ public class Console {
                             break;
                         case "2":
                             adoptBaby();
+                            break;
                         default:
                             System.out.println("Invalid command");
                     }
