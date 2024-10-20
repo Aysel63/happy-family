@@ -3,12 +3,13 @@ package az.edu.turing.dao.impl;
 import az.edu.turing.dao.FamilyDao;
 import az.edu.turing.entity.Family;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CollectionFamilyDao implements FamilyDao {
 
-    private final List<Family> families;
+    private List<Family> families;
 
     public CollectionFamilyDao() {
         this.families = new ArrayList<>();
@@ -49,5 +50,20 @@ public class CollectionFamilyDao implements FamilyDao {
         } else {
             families.add(family);
         }
+    }
+
+    @Override
+    public void saveDataToFile(String filePath) throws IOException {
+        try(ObjectOutputStream objectOutputStream=new ObjectOutputStream(new FileOutputStream(filePath))){
+            objectOutputStream.writeObject(families);
+        }
+    }
+
+    @Override
+    public void loadDataFromFile(String filePath) throws IOException, ClassNotFoundException {
+        try(ObjectInputStream objectInputStream=new ObjectInputStream(new FileInputStream(filePath))){
+            families=(List<Family>) objectInputStream.readObject();
+        }
+
     }
 }
