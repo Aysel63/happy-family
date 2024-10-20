@@ -63,8 +63,8 @@ public class Console {
                 case "8":
                     label2:
                     while (true) {
-                    System.out.print("Enter second command: ");
-                    String c = sc.nextLine();
+                        System.out.print("Enter second command: ");
+                        String c = sc.nextLine();
                         switch (c) {
                             case "1":
                                 birthBaby();
@@ -84,6 +84,12 @@ public class Console {
                     int age = getValidNumber();
                     familyController.getAllFamilies().forEach(family -> familyController.deleteAllChildrenOlderThen(age));
                     break;
+                case "10":
+                    saveData();
+                    break;
+                case "11":
+                    loadData();
+                    break;
                 default:
                     System.out.println("Invalid command");
             }
@@ -91,10 +97,24 @@ public class Console {
         sc.close();
     }
 
+    private void saveData() {
+        System.out.print("Enter file name to save data: ");
+        String fileName = sc.nextLine();
+        familyController.saveData(fileName);
+    }
+
+    private void loadData() {
+        System.out.print("Enter file name to load data: ");
+        String fileName = sc.nextLine();
+        familyController.loadData(fileName);
+    }
+
     private int getValidNumber() {
-        while (true){
+        while (true) {
             if (sc.hasNextInt()) {
-                return sc.nextInt();
+                int number = sc.nextInt();
+                sc.nextLine();
+                return  number;
             }
             sc.nextLine();
             System.out.print("Input must be integer!!! Try again: ");
