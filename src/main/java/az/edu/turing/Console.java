@@ -21,10 +21,9 @@ public class Console {
     private final FamilyDao familyDao = new CollectionFamilyDao();
     private final FamilyService familyService = new FamilyService(familyDao);
     private final FamilyController familyController = new FamilyController(familyService);
+    private final Scanner sc = new Scanner(System.in);
 
     public void start() {
-        Scanner sc = new Scanner(System.in);
-
         label1:
         while (true) {
             System.out.print("Enter command: ");
@@ -89,10 +88,10 @@ public class Console {
                     System.out.println("Invalid command");
             }
         }
+        sc.close();
     }
 
     private int getValidNumber() {
-        Scanner sc = new Scanner(System.in);
         while (true){
             if (sc.hasNextInt()) {
                 return sc.nextInt();
@@ -103,7 +102,6 @@ public class Console {
     }
 
     private void adoptBaby() {
-        Scanner sc = new Scanner(System.in);
         int familyId = getFamilyId();
 
         System.out.println("Enter the full name of the child: ");
@@ -121,8 +119,6 @@ public class Console {
 
 
     private void birthBaby() {
-        Scanner sc = new Scanner(System.in);
-
         int familyId = getFamilyId();
 
         System.out.println("If it is boy, what will be his name?");
@@ -164,8 +160,6 @@ public class Console {
     }
 
     private Human requestMemberFields(String member) {
-        Scanner sc = new Scanner(System.in);
-
         System.out.printf("Please enter %s's name: ", member);
         String memberName = sc.nextLine();
         System.out.printf("Please enter %s's last name: ", member);
@@ -182,7 +176,6 @@ public class Console {
     }
 
     private int getIq(String member) {
-        Scanner sc = new Scanner(System.in);
         int iq;
         while (true) {
             System.out.printf("Please enter %s's iq (1 to 100): ", member);
@@ -197,7 +190,6 @@ public class Console {
     }
 
     private String getBirthDate(String member) {
-        Scanner sc = new Scanner(System.in);
         String memberBirthDate;
         while (true) {
             System.out.printf("Please enter %s's birthDate (dd/MM/yyyy): ", member);
