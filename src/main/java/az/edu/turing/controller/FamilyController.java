@@ -81,11 +81,11 @@ public class FamilyController {
         familyService.addPet(familyIndex, pet);
     }
 
-    public void saveData(String filePath) {
+    public void saveDataToFile(String filePath) {
         familyService.saveDataToFile(filePath);
     }
 
-    public void loadData(String filePath) {
+    public void loadDataFromFile(String filePath) {
         familyService.loadDataFromFile(filePath);
     }
 }

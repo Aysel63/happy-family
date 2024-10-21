@@ -85,10 +85,10 @@ public class Console {
                     familyController.getAllFamilies().forEach(family -> familyController.deleteAllChildrenOlderThen(age));
                     break;
                 case "10":
-                    saveData();
+                    saveDataToFile();
                     break;
                 case "11":
-                    loadData();
+                    loadDataFromFile();
                     break;
                 default:
                     System.out.println("Invalid command");
@@ -97,16 +97,16 @@ public class Console {
         sc.close();
     }
 
-    private void saveData() {
+    private void saveDataToFile() {
         System.out.print("Enter file name to save data: ");
         String fileName = sc.nextLine();
-        familyController.saveData(fileName);
+        familyController.saveDataToFile(fileName);
     }
 
-    private void loadData() {
+    private void loadDataFromFile() {
         System.out.print("Enter file name to load data: ");
         String fileName = sc.nextLine();
-        familyController.loadData(fileName);
+        familyController.loadDataFromFile(fileName);
     }
 
     private int getValidNumber() {
