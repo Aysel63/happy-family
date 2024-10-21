@@ -17,7 +17,7 @@ public interface FamilyDao {
 
     void saveFamily(Family family);
 
-    void saveDataToFile(String filePath) throws IOException;
+    void saveDataToFile() throws IOException;
 
-    void loadDataFromFile(String filePath) throws IOException, ClassNotFoundException;
+    void loadDataFromFile() throws IOException, ClassNotFoundException;
 }
