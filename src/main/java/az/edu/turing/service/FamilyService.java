@@ -28,6 +28,10 @@ public class FamilyService {
         this.familyDao = familyDao;
     }
 
+    public void saveFamily(Family family) {
+        familyDao.saveFamily(family);
+    }
+
     public List<Family> getAllFamilies() {
         return familyDao.getAllFamilies();
     }
@@ -73,15 +77,9 @@ public class FamilyService {
     public Family bornChild(Family family, String masculineName, String feminineName) {
         boolean isBoy = Math.random() < 0.5;
         String childName = isBoy ? masculineName : feminineName;
-
-        Human child;
-        if (isBoy) child = new Man(childName,
-                family.getFather().getSurname(),
-                LocalDate.now().format(DataUtils.birthDateFormatter));
-        else child = new Woman(childName,
-                family.getFather().getSurname(),
-                LocalDate.now().format(DataUtils.birthDateFormatter));
-
+        Human child = isBoy
+                ? new Man(childName, family.getFather().getSurname(), LocalDate.now().format(DataUtils.birthDateFormatter))
+                : new Woman(childName, family.getFather().getSurname(), LocalDate.now().format(DataUtils.birthDateFormatter));
         family.addChild(child);
         familyDao.saveFamily(family);
         return family;

@@ -54,9 +54,9 @@ public class Human implements Serializable {
     }
 
     public String greetPets() {
-        List<String> petNickNames = family.getPets().stream().map(Pet::getNickname).collect(Collectors.toList());
-        String result = String.join(", ", petNickNames);
-        return "Hello, " + result + ".";
+        return family.getPets().stream()
+                .map(Pet::getNickname)
+                .collect(Collectors.joining(", ", "Hello, ", "."));
     }
 
     public String describePets() {
