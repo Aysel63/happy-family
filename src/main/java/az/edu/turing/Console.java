@@ -14,6 +14,7 @@ import az.edu.turing.model.DataUtils;
 import az.edu.turing.service.FamilyService;
 
 import java.time.LocalDate;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Console {
@@ -24,86 +25,85 @@ public class Console {
     private final Scanner sc = new Scanner(System.in);
 
     public void start() {
-        label1:
-        while (true) {
-            System.out.print("Enter command: ");
-            String command = sc.nextLine();
+       boolean running=true;
+        while (running) {
+            int command=getValidNumber("Enter a command: ");
             switch (command) {
-                case "exit":
-                    break label1;
-                case "1":
+                case 1:
                     fillWithData();
                     break;
-                case "2":
+                case 2:
                     familyController.displayAllFamilies();
                     break;
-                case "3":
-                    System.out.print("Enter number: ");
-                    int n = getValidNumber();
+                case 3:
+                    int n = getValidNumber("Enter number: ");
                     familyController.getFamiliesBiggerThan(n).forEach(family -> System.out.println(family.prettyFormat()));
                     break;
-                case "4":
-                    System.out.print("Enter number: ");
-                    int n1 = getValidNumber();
-                    familyController.getFamiliesLessThan(n1).forEach(family -> System.out.println(family.prettyFormat()));
+                case 4:
+                    int number1 = getValidNumber("Enter number: ");
+                    familyController.getFamiliesLessThan(number1).forEach(family -> System.out.println(family.prettyFormat()));
                     break;
-                case "5":
-                    System.out.print("Enter number: ");
-                    int n2 = getValidNumber();
-                    System.out.println(familyController.countFamiliesWithMemberNumber(n2).size());
+                case 5:
+                    int number = getValidNumber("Enter number: ");
+                    System.out.println(familyController.countFamiliesWithMemberNumber(number).size());
                     break;
-                case "6":
+                case 6:
                     createNewFamily();
                     break;
-                case "7":
-                    System.out.print("Enter the id to delete family: ");
-                    int id = getValidNumber();
+                case 7:
+                    int id = getValidNumber("Enter the id: ");
                     familyController.deleteFamilyByIndex(id);
                     break;
-                case "8":
-                    label2:
-                    while (true) {
-                    System.out.print("Enter second command: ");
-                    String c = sc.nextLine();
-                        switch (c) {
-                            case "1":
-                                birthBaby();
-                                break;
-                            case "2":
-                                adoptBaby();
-                                break;
-                            case "3":
-                                break label2;
-                            default:
-                                System.out.println("Invalid command");
-                        }
-                    }
+                case 8:
+                    editFamilyByIndex();
                     break;
-                case "9":
-                    System.out.println("Enter the age: ");
-                    int age = getValidNumber();
+                case 9:
+                    int age = getValidNumber("Enter the age:");
                     familyController.getAllFamilies().forEach(family -> familyController.deleteAllChildrenOlderThen(age));
                     break;
+                case 10:
+                    running=false;
                 default:
                     System.out.println("Invalid command");
             }
         }
-        sc.close();
     }
 
-    private int getValidNumber() {
+    private int getValidNumber(String message) {
         while (true){
-            if (sc.hasNextInt()) {
-                return sc.nextInt();
+            System.out.println(message);
+            try{return sc.nextInt();
+        }catch (InputMismatchException e){
+                System.out.print("Input must be integer!!! Try again: ");
+                sc.nextLine();
             }
-            sc.nextLine();
-            System.out.print("Input must be integer!!! Try again: ");
+    }}
+
+    private void editFamilyByIndex(){
+        int index=getValidNumber("Enter family index: ")-1;
+        Family family=familyService.getFamilyById(index);
+        if(family==null){
+            System.out.println("Family not found");
+            return;
         }
+        int option=getValidNumber("Enter the option: ");
+        switch (option){
+            case 1:
+                birthBaby();
+            case 2:
+                adoptBaby();
+            case 3:
+                System.out.println("Invalid option.");
+        }
+
     }
 
     private void adoptBaby() {
         int familyId = getFamilyId();
-
+        if(familyId<0){
+            System.out.println("Invalid family Id");
+            return;
+        }
         System.out.println("Enter the full name of the child: ");
         String fullName = sc.nextLine();
         String[] names = fullName.split(" ");
@@ -133,8 +133,7 @@ public class Console {
     private int getFamilyId() {
         int familyId;
         while (true) {
-            System.out.print("Please enter family id: ");
-            familyId = getValidNumber();
+            familyId = getValidNumber("Please enter family id: ");
             System.out.println(familyController.count());
             if (familyId < 0 || familyId >= familyController.count()) {
                 System.out.println("Invalid family id!");
@@ -148,8 +147,8 @@ public class Console {
     private void createNewFamily() {
         System.out.println("Let's create a new family.");
 
-        Human mother = requestMemberFields("mother");
-        Human father = requestMemberFields("father");
+        Human mother = requestMemberFields(false);
+        Human father = requestMemberFields(true);
 
         Family family = new Family(mother, father);
 
@@ -159,34 +158,31 @@ public class Console {
         familyDao.saveFamily(family);
     }
 
-    private Human requestMemberFields(String member) {
-        System.out.printf("Please enter %s's name: ", member);
+    private Human requestMemberFields(boolean isMale) {
+        System.out.printf("Please enter %s's name: ", isMale ? "male" : "female");
         String memberName = sc.nextLine();
-        System.out.printf("Please enter %s's last name: ", member);
+        System.out.printf("Please enter %s's last name: ", isMale ? "male" : "female");
         String memberLastName = sc.nextLine();
-        String memberBirthDate = getBirthDate(member);
-        int iq = getIq(member);
+        String memberBirthDate = getBirthDate(isMale ? "male" : "female");
+        int iq = getIq(isMale ? "male" : "female");
 
-        if (member.equals("mother")) {
-            return new Woman(memberName, memberLastName, memberBirthDate, iq);
-        } else if (member.equals("father")) {
+        if (isMale) {
             return new Man(memberName, memberLastName, memberBirthDate, iq);
+        } else {
+            return new Woman(memberName, memberLastName, memberBirthDate, iq);
         }
-        return new Human(memberName, memberLastName, memberBirthDate, iq);
     }
 
     private int getIq(String member) {
         int iq;
         while (true) {
-            System.out.printf("Please enter %s's iq (1 to 100): ", member);
-            iq = getValidNumber();
-            if (iq < 1 || iq > 100) {
-                System.out.println("Invalid iq. Try again.");
-                continue;
+            iq = getValidNumber("Please enter %s's iq (1 to 100): ");
+            if (iq > 1 & iq <100) {
+                return iq;
             }
-            break;
+            System.out.println("Invalid iq. Try again.");
+
         }
-        return iq;
     }
 
     private String getBirthDate(String member) {
