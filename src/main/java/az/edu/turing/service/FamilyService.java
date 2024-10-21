@@ -132,20 +132,22 @@ public class FamilyService {
         family.setPets(pets);
         familyDao.saveFamily(family);
     }
-    public void saveDataToFile(String filePath){
-        try{
-            familyDao.saveDataToFile(filePath);
+
+    public void saveDataToFile() {
+        try {
+            familyDao.saveDataToFile();
             System.out.println("Data saved to file successfully.");
-        }catch(IOException e){
+        } catch (IOException e) {
             System.out.println("Failed to save data.");
         }
 
     }
-    public void loadDataFromFile(String filePath){
-        try{
-            familyDao.loadDataFromFile(filePath);
+
+    public void loadDataFromFile() {
+        try {
+            familyDao.loadDataFromFile();
             System.out.println("Data loaded from file successfully.");
-        }catch(IOException|ClassNotFoundException e){
+        } catch (IOException | ClassNotFoundException e) {
             System.out.println("Failed to load data.");
         }
 
