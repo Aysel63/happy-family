@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -15,7 +16,7 @@ public class Human {
 
     private String name;
     private String surname;
-    private long birthDate;
+    private long birthDateMillis;
     private int iq;
     private Map<String, String> schedule;
     private Family family;
@@ -23,19 +24,17 @@ public class Human {
     public Human(String name, String surname, String birthDate) {
         this.name = name;
         this.surname = surname;
-        this.birthDate = parseBirthDate(birthDate);
+        this.birthDateMillis = parseBirthDate(birthDate);
+
     }
 
     public Human(String name, String surname, String birthDate, int iq) {
-        this.name = name;
-        this.surname = surname;
-        this.birthDate = parseBirthDate(birthDate);
+        this(name , surname , birthDate);
         this.iq = iq;
     }
 
     public Human(String name, String surname, String birthDate, int iq, Map<String, String> schedule, Family family) {
-        this(name, surname, birthDate);
-        this.iq = iq;
+        this(name , surname , birthDate , iq);
         this.schedule = schedule;
         this.family = family;
     }
@@ -46,7 +45,7 @@ public class Human {
     }
 
     public String describeAge() {
-        LocalDate birthDateLocal = LocalDate.ofEpochDay(birthDate);
+        LocalDate birthDateLocal = LocalDate.from(Instant.ofEpochMilli(birthDateMillis));
         LocalDate currentDate = LocalDate.now();
 
         Period age = Period.between(birthDateLocal, currentDate);
@@ -54,9 +53,9 @@ public class Human {
     }
 
     public String greetPets() {
-        List<String>petNickNames=family.getPets().stream().map(Pet::getNickname).collect(Collectors.toList());
-        String result=String.join(", ",petNickNames);
-        return "Hello, " + result + ".";
+        return family.getPets().stream()
+                .map(Pet::getNickname)
+                .collect(Collectors.joining(", ", "Hello, ", "."));
     }
 
     public String describePets() {
@@ -93,11 +92,11 @@ public class Human {
     }
 
     public long getBirthDate() {
-        return birthDate;
+        return birthDateMillis;
     }
 
     public void setBirthDate(long birthDate) {
-        this.birthDate = birthDate;
+        this.birthDateMillis = birthDate;
     }
 
     public int getIq() {
@@ -129,29 +128,34 @@ public class Human {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         Human human = (Human) object;
-        return birthDate == human.birthDate && Objects.equals(name, human.name) && Objects.equals(surname, human.surname) && Objects.equals(family, human.family);
+        return birthDateMillis == human.birthDateMillis && iq == human.iq && Objects.equals(name, human.name) && Objects.equals(surname, human.surname);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, surname,birthDate, family);
+        return Objects.hash(name, surname, birthDateMillis, iq);
     }
 
     @Override
     public String toString() {
-        LocalDate birthDateLocal = Instant
-                .ofEpochMilli(birthDate)
-                .atZone(ZoneId.systemDefault())
-                .toLocalDate();
-        String formattedBirthDate = birthDateLocal.format(DataUtils.birthDateFormatter);
-
         return "Human{" +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", birthDate=" + formattedBirthDate +
+                ", birthDate=" + formatBirthDate() +
                 ", iq=" + iq +
                 ", schedule=" + schedule +
                 '}';
+    }
+
+    private String formatBirthDate() {
+        LocalDate birthDate = LocalDate.ofEpochDay(birthDateMillis / (1000 * 60 * 60 * 24));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return birthDate.format(formatter);
+    }
+
+    public String prettyFormat() {
+        return String.format("{name='%s', surname='%s', birthDate='%s', iq=%d, schedule=%s}",
+                name, surname, formatBirthDate(), iq, schedule);
     }
 
 }

@@ -12,8 +12,6 @@ import az.edu.turing.entity.Man;
 import az.edu.turing.entity.Pet;
 import az.edu.turing.entity.Woman;
 
-import java.time.LocalDate;
-
 public class Main {
 
     public static void main(String[] args) {
@@ -37,24 +35,23 @@ public class Main {
         familyController.adoptChild(family2, child2);
         Pet pet2 = new DomesticCat("Masdan");
         familyController.addPet(1, pet2);
+        System.out.println(father2.greetPets());
 
-        System.out.println(familyController.count());
-        familyController.displayAllFamilies();
-        System.out.println();
-
-        System.out.println(familyController.getFamilyById(0));
-        System.out.println(familyController.getFamilyById(1));
-        System.out.println();
-
-        System.out.println(familyController.getPets(1));
-        System.out.println();
-
-        System.out.println(familyController.getFamiliesLessThan(4));
-        System.out.println(familyController.countFamiliesWithMemberNumber(4));
-        System.out.println();
-
-        familyController.deleteFamilyByIndex(0);
-
-        familyController.displayAllFamilies();
+//        System.out.println(familyController.count());
+//        familyController.displayAllFamilies();
+//        System.out.println();
+//
+//        System.out.println(familyController.getFamilyById(0));
+//        System.out.println(familyController.getFamilyById(1));
+//        System.out.println();
+//
+//        System.out.println(familyController.getPets(1));
+//        System.out.println();
+//
+//        System.out.println(familyController.getFamiliesLessThan(4));
+//        System.out.println(familyController.countFamiliesWithMemberNumber(4));
+//        System.out.println();
+//
+//        familyController.deleteFamilyByIndex(0);
     }
 }

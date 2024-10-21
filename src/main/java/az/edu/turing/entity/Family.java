@@ -135,10 +135,10 @@ public class Family implements HumanCreator {
 
         String[] boyNames = {"Muhammed", "Adil", "Elshan"};
         String[] girlNames = {"Aysel", "Sevda", "Fidan"};
+
         String name = isBoy ? boyNames[random.nextInt(boyNames.length)] : girlNames[random.nextInt(girlNames.length)];
 
         int averageIq = (mother.getIq() + father.getIq()) / 2;
-
         Human child;
         if (isBoy) {
             child = new Man(name, father.getName(), LocalDate.now().format(DataUtils.birthDateFormatter), averageIq, null, this);
@@ -155,6 +155,23 @@ public class Family implements HumanCreator {
         System.out.println("Family object is being removed: " + this);
         super.finalize();
 
+    }
+
+    public String prettyFormat() {
+        StringBuilder result = new StringBuilder();
+        result.append("family:\n")
+                .append("\tmother: ").append(mother.prettyFormat()).append(",\n")
+                .append("\tfather: ").append(father.prettyFormat()).append(",\n")
+                .append("\tchildren:\n");
+
+        for (Human child : children) {
+            String gender = child instanceof Man ? "boy" : "girl";
+            result.append("\t\t").append(gender).append(": ").append(child.prettyFormat()).append("\n");
+        }
+
+        result.append("\tpets: ").append(pets.stream().map(Pet::prettyFormat).toList());
+
+        return result.toString();
     }
 
 }

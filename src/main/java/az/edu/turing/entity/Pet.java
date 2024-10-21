@@ -108,5 +108,10 @@ public abstract class Pet {
     public void setHabits(Set<String> habits) {
         this.habits = habits;
     }
+
+    public String prettyFormat() {
+        return String.format("{species=%s, nickname='%s', age=%d, trickLevel=%d, habits=%s}",
+                species, nickname, age, trickLevel, habits);
+    }
 }
 

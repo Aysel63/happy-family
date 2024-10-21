@@ -1,6 +1,8 @@
 package az.edu.turing.service;
 
 import az.edu.turing.dao.FamilyDao;
+import az.edu.turing.entity.Man;
+import az.edu.turing.entity.Woman;
 import az.edu.turing.model.DataUtils;
 import az.edu.turing.entity.Family;
 import az.edu.turing.entity.Human;
@@ -25,13 +27,18 @@ public class FamilyService {
         this.familyDao = familyDao;
     }
 
+    public void saveFamily(Family family) {
+        familyDao.saveFamily(family);
+    }
+
     public List<Family> getAllFamilies() {
         return familyDao.getAllFamilies();
     }
 
     public void displayAllFamilies() {
         List<Family> families = getAllFamilies();
-        IntStream.range(0, families.size()).forEach(i -> System.out.println((i + 1) + ". " + families.get(i)));
+        IntStream.range(0, count()).forEach(i -> System.out.println((i + 1) + ". " + families.get(i).prettyFormat()));
+
     }
 
     public List<Family> getFamiliesBiggerThan(int numberOfPeople) {
@@ -67,8 +74,11 @@ public class FamilyService {
     }
 
     public Family bornChild(Family family, String masculineName, String feminineName) {
-        String childName = (Math.random() < 0.5) ? masculineName : feminineName;
-        Human child = new Human(childName, family.getFather().getSurname(), LocalDate.now().format(DataUtils.birthDateFormatter));
+        boolean isBoy = Math.random() < 0.5;
+        String childName = isBoy ? masculineName : feminineName;
+        Human child = isBoy
+                ? new Man(childName, family.getFather().getSurname(), LocalDate.now().format(DataUtils.birthDateFormatter))
+                : new Woman(childName, family.getFather().getSurname(), LocalDate.now().format(DataUtils.birthDateFormatter));
         family.addChild(child);
         familyDao.saveFamily(family);
         return family;
