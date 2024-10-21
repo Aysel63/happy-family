@@ -18,6 +18,10 @@ public class FamilyController {
         this.familyService = familyService;
     }
 
+    public void saveFamily(Family family) {
+        familyService.saveFamily(family);
+    }
+
     public List<Family> getAllFamilies() {
         return familyService.getAllFamilies();
     }

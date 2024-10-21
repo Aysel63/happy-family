@@ -27,6 +27,10 @@ public class FamilyService {
         this.familyDao = familyDao;
     }
 
+    public void saveFamily(Family family) {
+        familyDao.saveFamily(family);
+    }
+
     public List<Family> getAllFamilies() {
         return familyDao.getAllFamilies();
     }
