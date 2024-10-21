@@ -1,8 +1,6 @@
 package az.edu.turing;
 
 import az.edu.turing.controller.FamilyController;
-import az.edu.turing.dao.FamilyDao;
-import az.edu.turing.dao.impl.CollectionFamilyDao;
 import az.edu.turing.entity.Dog;
 import az.edu.turing.entity.DomesticCat;
 import az.edu.turing.entity.Family;
@@ -11,102 +9,96 @@ import az.edu.turing.entity.Man;
 import az.edu.turing.entity.Pet;
 import az.edu.turing.entity.Woman;
 import az.edu.turing.model.DataUtils;
-import az.edu.turing.service.FamilyService;
 
 import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Console {
 
-    private final FamilyDao familyDao = new CollectionFamilyDao();
-    private final FamilyService familyService = new FamilyService(familyDao);
-    private final FamilyController familyController = new FamilyController(familyService);
+    private final FamilyController familyController;
     private final Scanner sc = new Scanner(System.in);
 
+    public Console(FamilyController familyController) {
+        this.familyController = familyController;
+    }
+
     public void start() {
-        label1:
         while (true) {
-            System.out.print("Enter command: ");
+            System.out.print("Enter a command: ");
             String command = sc.nextLine();
+
             switch (command) {
                 case "exit":
-                    break label1;
+                    return;
+                case "help":
+                    displayCommandList();
+                    break;
                 case "1":
-                    fillWithData();
+//                    fillWithData();
+                    familyController.loadDataFromFile();
                     break;
                 case "2":
                     familyController.displayAllFamilies();
                     break;
                 case "3":
-                    System.out.print("Enter number: ");
-                    int n = getValidNumber();
-                    familyController.getFamiliesBiggerThan(n).forEach(family -> System.out.println(family.prettyFormat()));
+                    familyController.getFamiliesBiggerThan(getValidNumber("Enter number: ")).forEach(family -> System.out.println(family.prettyFormat()));
                     break;
                 case "4":
-                    System.out.print("Enter number: ");
-                    int n1 = getValidNumber();
-                    familyController.getFamiliesLessThan(n1).forEach(family -> System.out.println(family.prettyFormat()));
+                    familyController.getFamiliesLessThan(getValidNumber("Enter number: ")).forEach(family -> System.out.println(family.prettyFormat()));
                     break;
                 case "5":
-                    System.out.print("Enter number: ");
-                    int n2 = getValidNumber();
-                    System.out.println(familyController.countFamiliesWithMemberNumber(n2).size());
+                    System.out.println(familyController.countFamiliesWithMemberNumber(getValidNumber("Enter number: ")).size());
                     break;
                 case "6":
                     createNewFamily();
                     break;
                 case "7":
-                    System.out.print("Enter the id to delete family: ");
-                    int id = getValidNumber();
-                    familyController.deleteFamilyByIndex(id);
+                    familyController.deleteFamilyByIndex(getFamilyId());
                     break;
                 case "8":
-                    label2:
-                    while (true) {
-                        System.out.print("Enter second command: ");
-                        String c = sc.nextLine();
-                        switch (c) {
-                            case "1":
-                                birthBaby();
-                                break;
-                            case "2":
-                                adoptBaby();
-                                break;
-                            case "3":
-                                break label2;
-                            default:
-                                System.out.println("Invalid command");
-                        }
-                    }
+                    editFamilyByIndex();
                     break;
                 case "9":
-                    System.out.println("Enter the age: ");
-                    int age = getValidNumber();
-                    familyController.getAllFamilies().forEach(family -> familyController.deleteAllChildrenOlderThen(age));
+                    familyController.getAllFamilies().forEach(family -> familyController.deleteAllChildrenOlderThen(getValidNumber("Enter the age:")));
                     break;
                 case "10":
-                    saveDataToFile();
-                    break;
-                case "11":
-                    loadDataFromFile();
+                    familyController.saveDataToFile();
                     break;
                 default:
                     System.out.println("Invalid command");
             }
         }
-        sc.close();
     }
 
-    private void saveDataToFile() {
-        System.out.print("Enter file name to save data: ");
-        String fileName = sc.nextLine();
-        familyController.saveDataToFile(fileName);
+    private int getValidNumber(String message) {
+        System.out.print(message);
+        int number;
+        while (!sc.hasNextInt()) {
+            System.out.print("Input must be integer!!! Try again: ");
+            sc.nextLine();
+        }
+        number = sc.nextInt();
+        sc.nextLine();
+        return number;
     }
 
-    private void loadDataFromFile() {
-        System.out.print("Enter file name to load data: ");
-        String fileName = sc.nextLine();
-        familyController.loadDataFromFile(fileName);
+    private void editFamilyByIndex() {
+        while (true) {
+            System.out.print("Enter the option: ");
+            String option = sc.nextLine();
+            switch (option) {
+                case "1":
+                    birthBaby();
+                    break;
+                case "2":
+                    adoptBaby();
+                    break;
+                case "3":
+                    return;
+                default:
+                    System.out.println("Invalid option.");
+            }
+        }
     }
 
     private int getValidNumber() {
@@ -114,7 +106,7 @@ public class Console {
             if (sc.hasNextInt()) {
                 int number = sc.nextInt();
                 sc.nextLine();
-                return  number;
+                return number;
             }
             sc.nextLine();
             System.out.print("Input must be integer!!! Try again: ");
@@ -153,9 +145,7 @@ public class Console {
     private int getFamilyId() {
         int familyId;
         while (true) {
-            System.out.print("Please enter family id: ");
-            familyId = getValidNumber();
-            System.out.println(familyController.count());
+            familyId = getValidNumber("Please enter family id: ") - 1;
             if (familyId < 0 || familyId >= familyController.count()) {
                 System.out.println("Invalid family id!");
                 continue;
@@ -176,10 +166,12 @@ public class Console {
         mother.setFamily(family);
         father.setFamily(family);
 
-        familyDao.saveFamily(family);
+        familyController.saveFamily(family);
     }
 
     private Human requestMemberFields(String member) {
+        Scanner sc = new Scanner(System.in);
+
         System.out.printf("Please enter %s's name: ", member);
         String memberName = sc.nextLine();
         System.out.printf("Please enter %s's last name: ", member);
@@ -198,31 +190,33 @@ public class Console {
     private int getIq(String member) {
         int iq;
         while (true) {
-            System.out.printf("Please enter %s's iq (1 to 100): ", member);
-            iq = getValidNumber();
-            if (iq < 1 || iq > 100) {
-                System.out.println("Invalid iq. Try again.");
-                continue;
+            iq = getValidNumber(String.format("Please enter %s's iq (1 to 100): ", member));
+            if (iq >= 1 && iq <= 100) {
+                return iq;
             }
-            break;
+            System.out.println("Invalid iq. Try again.");
         }
-        return iq;
     }
 
     private String getBirthDate(String member) {
         String memberBirthDate;
         while (true) {
-            System.out.printf("Please enter %s's birthDate (dd/MM/yyyy): ", member);
-            memberBirthDate = sc.nextLine();
+            System.out.printf("Please enter %s's birthDate.\n", member);
+
+            int year = getValidNumber("Enter year: ");
+            int month = getValidNumber("Enter month: ");
+            int day = getValidNumber("Enter day: ");
+
             try {
-                LocalDate date = LocalDate.parse(memberBirthDate, DataUtils.birthDateFormatter);
+                LocalDate date = LocalDate.of(year, month, day);
                 if (date.isAfter(LocalDate.now())) {
                     System.out.println("Enter valid birth date.");
                     continue;
                 }
+                memberBirthDate = date.format(DataUtils.birthDateFormatter);
                 break;
             } catch (Exception e) {
-                System.out.println("Invalid birth date format. Try again.");
+                System.out.println("Invalid birth date. Try again.");
             }
         }
         return memberBirthDate;
@@ -244,5 +238,45 @@ public class Console {
         familyController.adoptChild(family2, child2);
         Pet pet2 = new DomesticCat("Masdan");
         familyController.addPet(1, pet2);
+    }
+
+
+    private void displayCommandList() {
+        System.out.println("- 1. Load families from file.\n" +
+                "- 2. Display the entire list of families (displays a list of all families with indexation starting with 1)\n" +
+                "- 3. Display a list of families where the number of people is greater than the specified number\n" +
+                "  - request a number one you interested in\n" +
+                "- 4. Display a list of families where the number of people is less than the specified number\n" +
+                "  - request a number one you interested in\n" +
+                "- 5. Calculate the number of families where the number of members is\n" +
+                "  - request a number one you interested in\n" +
+                "- 6. Create a new family\n" +
+                "  - request for the mother's name\n" +
+                "  - request mother's last name\n" +
+                "  - request mother's birth year\n" +
+                "  - request mother's month of birth\n" +
+                "  - request mother's birthday\n" +
+                "  - request mother's iq\n" +
+                "  \n" +
+                "  - request for the father's name\n" +
+                "  - request father's last name\n" +
+                "  - request father's birth year\n" +
+                "  - request father's month of birth\n" +
+                "  - request father's birthday\n" +
+                "  - request father's iq\n" +
+                "- 7. Delete a family by its index in the general list\n" +
+                "  - request identifier (ID)\n" +
+                "- 8. Edit a family by its index in the general list\n" +
+                "  - 1. Give birth to a baby\n" +
+                "    - request family identifier (ID)\n" +
+                "    - request the necessary data (what name to give the boy, what name to girl)\n" +
+                "  - 2. Adopt a child\n" +
+                "    - request family identifier (ID)\n" +
+                "    - request Required data (full name, year of birth, intelligence)\n" +
+                "  - 3. Return to main menu   \n" +
+                "- 9. Remove all children over the age of majority (all families remove children over the age of majority - let us assume they have grown up)\n" +
+                "  - request interested age\n" +
+                "- 10. Save new changes to file\n" +
+                "- 'exit' - exit the program");
     }
 }
