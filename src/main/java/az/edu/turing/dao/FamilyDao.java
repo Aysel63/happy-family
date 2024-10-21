@@ -2,6 +2,7 @@ package az.edu.turing.dao;
 
 import az.edu.turing.entity.Family;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface FamilyDao {
@@ -15,4 +16,8 @@ public interface FamilyDao {
     boolean deleteFamily(Family family);
 
     void saveFamily(Family family);
+
+    void saveDataToFile() throws IOException;
+
+    void loadDataFromFile() throws IOException, ClassNotFoundException;
 }

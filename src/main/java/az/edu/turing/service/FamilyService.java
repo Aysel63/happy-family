@@ -9,6 +9,7 @@ import az.edu.turing.entity.Human;
 import az.edu.turing.entity.Pet;
 import az.edu.turing.exception.BadRequestException;
 
+import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.Period;
@@ -131,4 +132,25 @@ public class FamilyService {
         family.setPets(pets);
         familyDao.saveFamily(family);
     }
+
+    public void saveDataToFile() {
+        try {
+            familyDao.saveDataToFile();
+            System.out.println("Data saved to file successfully.");
+        } catch (IOException e) {
+            System.out.println("Failed to save data.");
+        }
+
+    }
+
+    public void loadDataFromFile() {
+        try {
+            familyDao.loadDataFromFile();
+            System.out.println("Data loaded from file successfully.");
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Failed to load data.");
+        }
+
+    }
+
 }

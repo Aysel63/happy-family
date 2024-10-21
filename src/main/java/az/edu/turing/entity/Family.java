@@ -2,6 +2,7 @@ package az.edu.turing.entity;
 
 import az.edu.turing.model.DataUtils;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -13,7 +14,7 @@ import java.util.Random;
 
 ;
 
-public class Family implements HumanCreator {
+public class Family implements HumanCreator , Serializable {
 
     private Human mother;
     private Human father;

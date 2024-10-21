@@ -2,11 +2,12 @@ package az.edu.turing.entity;
 
 import az.edu.turing.model.Species;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Set;
 
-public abstract class Pet {
+public abstract class Pet implements Serializable {
 
     protected Species species;
     protected String nickname;

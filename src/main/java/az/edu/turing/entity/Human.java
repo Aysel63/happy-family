@@ -1,6 +1,7 @@
 package az.edu.turing.entity;
 import az.edu.turing.model.DataUtils;
 
+import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.Period;
@@ -12,7 +13,7 @@ import java.util.stream.Collectors;
 import java.util.Map;
 
 
-public class Human {
+public class Human implements Serializable {
 
     private String name;
     private String surname;
