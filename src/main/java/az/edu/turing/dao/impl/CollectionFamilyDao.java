@@ -1,6 +1,9 @@
 package az.edu.turing.dao.impl;
+
 import az.edu.turing.dao.FamilyDao;
 import az.edu.turing.entity.Family;
+import az.edu.turing.service.Logger;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -22,6 +25,7 @@ public class CollectionFamilyDao implements FamilyDao {
 
     @Override
     public List<Family> getAllFamilies() {
+        Logger.info("receiving a family list");
         return new ArrayList<>(families);
     }
 
@@ -30,6 +34,7 @@ public class CollectionFamilyDao implements FamilyDao {
         if (index < 0 || index >= families.size()) {
             return null;
         }
+        Logger.info("receiving a family by index" + index);
         return families.get(index);
     }
 
@@ -39,11 +44,13 @@ public class CollectionFamilyDao implements FamilyDao {
             return false;
         }
         families.remove(index);
+        Logger.info("removing a family by index" + index);
         return true;
     }
 
     @Override
     public boolean deleteFamily(Family family) {
+        Logger.info("removing a family by object");
         return families.remove(family);
     }
 
@@ -52,8 +59,10 @@ public class CollectionFamilyDao implements FamilyDao {
         int index = families.indexOf(family);
         if (index != -1) {
             families.set(index, family);
+            Logger.info("updated family");
         } else {
             families.add(family);
+            Logger.info("saving family");
         }
     }
 
@@ -62,6 +71,7 @@ public class CollectionFamilyDao implements FamilyDao {
         try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(FAMILIES_FILE_PATH))) {
             objectOutputStream.writeObject(families);
         }
+        Logger.info("saved all families to file");
     }
 
     @Override
@@ -69,5 +79,6 @@ public class CollectionFamilyDao implements FamilyDao {
         try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(FAMILIES_FILE_PATH))) {
             families = (List<Family>) objectInputStream.readObject();
         }
+        Logger.info("loaded all families from file");
     }
 }

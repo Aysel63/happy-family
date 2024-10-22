@@ -84,8 +84,8 @@ public class FamilyService {
         boolean isBoy = Math.random() < 0.5;
         String childName = isBoy ? masculineName : feminineName;
         Human child = isBoy
-                ? new Man(childName, family.getFather().getSurname(), LocalDate.now().format(AppConstant.birthDateFormatter))
-                : new Woman(childName, family.getFather().getSurname(), LocalDate.now().format(AppConstant.birthDateFormatter));
+                ? new Man(childName, family.getFather().getSurname(), LocalDate.now().format(AppConstant.BIRTH_DATE_FORMATTER))
+                : new Woman(childName, family.getFather().getSurname(), LocalDate.now().format(AppConstant.BIRTH_DATE_FORMATTER));
         family.addChild(child);
         familyDao.saveFamily(family);
         return family;
