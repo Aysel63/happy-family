@@ -12,7 +12,7 @@ import java.util.Set;
 public class FamilyController {
 
     private final FamilyService familyService;
-    private static final int FAMILY_SIZE_LIMIT = 5;
+
 
     public FamilyController(FamilyService familyService) {
         this.familyService = familyService;
@@ -51,17 +51,10 @@ public class FamilyController {
     }
 
     public Family bornChild(Family family, String masculineName, String feminineName) {
-        if (family.countFamily() >= FAMILY_SIZE_LIMIT) {
-            throw new FamilyOverflowException("Reached the maximum number of family members! Cannot have more than "
-                    + FAMILY_SIZE_LIMIT + " members.");
-        }
         return familyService.bornChild(family, masculineName, feminineName);
     }
 
     public Family adoptChild(Family family, Human child) {
-        if (family.countFamily() >= FAMILY_SIZE_LIMIT) {
-            throw new FamilyOverflowException("Reached the maximum number of family members! Cannot adopt more members.");
-        }
         return familyService.adoptChild(family, child);
     }
 

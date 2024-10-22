@@ -8,7 +8,7 @@ import az.edu.turing.entity.Human;
 import az.edu.turing.entity.Man;
 import az.edu.turing.entity.Pet;
 import az.edu.turing.entity.Woman;
-import az.edu.turing.model.DataUtils;
+import az.edu.turing.model.constant.AppConstant;
 
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -24,27 +24,26 @@ public class Console {
 
     public void start() {
         while (true) {
+            displayCommandList();
             System.out.print("Enter a command: ");
             String command = sc.nextLine();
-
             switch (command) {
                 case "exit":
                     return;
-                case "help":
-                    displayCommandList();
-                    break;
                 case "1":
-//                    fillWithData();
+                   fillWithData();
                     familyController.loadDataFromFile();
                     break;
                 case "2":
                     familyController.displayAllFamilies();
                     break;
                 case "3":
-                    familyController.getFamiliesBiggerThan(getValidNumber("Enter number: ")).forEach(family -> System.out.println(family.prettyFormat()));
+                    familyController.getFamiliesBiggerThan(getValidNumber("Enter number: ")).forEach(family
+                            -> System.out.println(family.prettyFormat()));
                     break;
                 case "4":
-                    familyController.getFamiliesLessThan(getValidNumber("Enter number: ")).forEach(family -> System.out.println(family.prettyFormat()));
+                    familyController.getFamiliesLessThan(getValidNumber("Enter number: ")).forEach(family
+                            -> System.out.println(family.prettyFormat()));
                     break;
                 case "5":
                     System.out.println(familyController.countFamiliesWithMemberNumber(getValidNumber("Enter number: ")).size());
@@ -59,7 +58,8 @@ public class Console {
                     editFamilyByIndex();
                     break;
                 case "9":
-                    familyController.getAllFamilies().forEach(family -> familyController.deleteAllChildrenOlderThen(getValidNumber("Enter the age:")));
+                    familyController.getAllFamilies().forEach(family -> familyController.deleteAllChildrenOlderThen
+                            (getValidNumber("Enter the age:")));
                     break;
                 case "10":
                     familyController.saveDataToFile();
@@ -101,21 +101,9 @@ public class Console {
         }
     }
 
-    private int getValidNumber() {
-        while (true) {
-            if (sc.hasNextInt()) {
-                int number = sc.nextInt();
-                sc.nextLine();
-                return number;
-            }
-            sc.nextLine();
-            System.out.print("Input must be integer!!! Try again: ");
-        }
-    }
 
     private void adoptBaby() {
         int familyId = getFamilyId();
-
         System.out.println("Enter the full name of the child: ");
         String fullName = sc.nextLine();
         String[] names = fullName.split(" ");
@@ -123,9 +111,7 @@ public class Console {
         String lastName = names[1];
         String birthDate = getBirthDate("child");
         int iq = getIq("child");
-
         Human adoptedChild = new Human(name, lastName, birthDate, iq);
-
         familyController.adoptChild(familyController.getFamilyById(familyId), adoptedChild);
     }
 
@@ -171,7 +157,6 @@ public class Console {
 
     private Human requestMemberFields(String member) {
         Scanner sc = new Scanner(System.in);
-
         System.out.printf("Please enter %s's name: ", member);
         String memberName = sc.nextLine();
         System.out.printf("Please enter %s's last name: ", member);
@@ -213,7 +198,7 @@ public class Console {
                     System.out.println("Enter valid birth date.");
                     continue;
                 }
-                memberBirthDate = date.format(DataUtils.birthDateFormatter);
+                memberBirthDate = date.format(AppConstant.birthDateFormatter);
                 break;
             } catch (Exception e) {
                 System.out.println("Invalid birth date. Try again.");
@@ -242,41 +227,16 @@ public class Console {
 
 
     private void displayCommandList() {
-        System.out.println("- 1. Load families from file.\n" +
-                "- 2. Display the entire list of families (displays a list of all families with indexation starting with 1)\n" +
-                "- 3. Display a list of families where the number of people is greater than the specified number\n" +
-                "  - request a number one you interested in\n" +
-                "- 4. Display a list of families where the number of people is less than the specified number\n" +
-                "  - request a number one you interested in\n" +
-                "- 5. Calculate the number of families where the number of members is\n" +
-                "  - request a number one you interested in\n" +
-                "- 6. Create a new family\n" +
-                "  - request for the mother's name\n" +
-                "  - request mother's last name\n" +
-                "  - request mother's birth year\n" +
-                "  - request mother's month of birth\n" +
-                "  - request mother's birthday\n" +
-                "  - request mother's iq\n" +
-                "  \n" +
-                "  - request for the father's name\n" +
-                "  - request father's last name\n" +
-                "  - request father's birth year\n" +
-                "  - request father's month of birth\n" +
-                "  - request father's birthday\n" +
-                "  - request father's iq\n" +
-                "- 7. Delete a family by its index in the general list\n" +
-                "  - request identifier (ID)\n" +
-                "- 8. Edit a family by its index in the general list\n" +
-                "  - 1. Give birth to a baby\n" +
-                "    - request family identifier (ID)\n" +
-                "    - request the necessary data (what name to give the boy, what name to girl)\n" +
-                "  - 2. Adopt a child\n" +
-                "    - request family identifier (ID)\n" +
-                "    - request Required data (full name, year of birth, intelligence)\n" +
-                "  - 3. Return to main menu   \n" +
-                "- 9. Remove all children over the age of majority (all families remove children over the age of majority - let us assume they have grown up)\n" +
-                "  - request interested age\n" +
-                "- 10. Save new changes to file\n" +
-                "- 'exit' - exit the program");
+        System.out.println("Choose a command:\n" +
+                "1. Fill with test data\n" +
+                "2. Display the entire list of families\n" +
+                "3. Display families bigger than a specified number\n" +
+                "4. Display families less than a specified number\n" +
+                "5. Count families with a specific number of members\n" +
+                "6. Create a new family\n" +
+                "7. Delete a family by index\n" +
+                "8. Edit a family by index\n" +
+                "9. Remove all children over the age of majority\n" +
+                "Exit");
     }
 }

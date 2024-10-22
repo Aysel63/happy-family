@@ -1,5 +1,5 @@
 package az.edu.turing.entity;
-import az.edu.turing.model.DataUtils;
+import az.edu.turing.model.constant.AppConstant;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.Map;
@@ -41,7 +40,7 @@ public class Human implements Serializable {
     }
 
     private long parseBirthDate(String birthDate) {
-        LocalDate localDate = LocalDate.parse(birthDate, DataUtils.birthDateFormatter);
+        LocalDate localDate = LocalDate.parse(birthDate, AppConstant.birthDateFormatter);
         return localDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
     }
 

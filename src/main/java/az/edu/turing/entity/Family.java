@@ -1,6 +1,6 @@
 package az.edu.turing.entity;
 
-import az.edu.turing.model.DataUtils;
+import az.edu.turing.model.constant.AppConstant;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -131,9 +131,7 @@ public class Family implements HumanCreator , Serializable {
     @Override
     public Human bornChild() {
         Random random = new Random();
-
         boolean isBoy = random.nextBoolean();
-
         String[] boyNames = {"Muhammed", "Adil", "Elshan"};
         String[] girlNames = {"Aysel", "Sevda", "Fidan"};
 
@@ -142,9 +140,9 @@ public class Family implements HumanCreator , Serializable {
         int averageIq = (mother.getIq() + father.getIq()) / 2;
         Human child;
         if (isBoy) {
-            child = new Man(name, father.getName(), LocalDate.now().format(DataUtils.birthDateFormatter), averageIq, null, this);
+            child = new Man(name, father.getName(), LocalDate.now().format(AppConstant.birthDateFormatter), averageIq, null, this);
         } else {
-            child = new Woman(name, father.getName(), LocalDate.now().format(DataUtils.birthDateFormatter), averageIq, null, this);
+            child = new Woman(name, father.getName(), LocalDate.now().format(AppConstant.birthDateFormatter), averageIq, null, this);
         }
 
         addChild(child);
