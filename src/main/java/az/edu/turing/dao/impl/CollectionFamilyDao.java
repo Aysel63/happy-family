@@ -1,8 +1,6 @@
 package az.edu.turing.dao.impl;
-
 import az.edu.turing.dao.FamilyDao;
 import az.edu.turing.entity.Family;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;

@@ -3,7 +3,8 @@ package az.edu.turing.service;
 import az.edu.turing.dao.FamilyDao;
 import az.edu.turing.entity.Man;
 import az.edu.turing.entity.Woman;
-import az.edu.turing.model.DataUtils;
+import az.edu.turing.exception.FamilyOverflowException;
+import az.edu.turing.model.constant.AppConstant;
 import az.edu.turing.entity.Family;
 import az.edu.turing.entity.Human;
 import az.edu.turing.entity.Pet;
@@ -23,6 +24,7 @@ import java.util.stream.IntStream;
 public class FamilyService {
 
     private final FamilyDao familyDao;
+    private static final int FAMILY_SIZE_LIMIT = 5;
 
     public FamilyService(FamilyDao familyDao) {
         this.familyDao = familyDao;
@@ -75,17 +77,24 @@ public class FamilyService {
     }
 
     public Family bornChild(Family family, String masculineName, String feminineName) {
+        if (family.countFamily() >= FAMILY_SIZE_LIMIT) {
+            throw new FamilyOverflowException("Reached the maximum number of family members! Cannot have more than "
+                    + FAMILY_SIZE_LIMIT + " members.");
+        }
         boolean isBoy = Math.random() < 0.5;
         String childName = isBoy ? masculineName : feminineName;
         Human child = isBoy
-                ? new Man(childName, family.getFather().getSurname(), LocalDate.now().format(DataUtils.birthDateFormatter))
-                : new Woman(childName, family.getFather().getSurname(), LocalDate.now().format(DataUtils.birthDateFormatter));
+                ? new Man(childName, family.getFather().getSurname(), LocalDate.now().format(AppConstant.birthDateFormatter))
+                : new Woman(childName, family.getFather().getSurname(), LocalDate.now().format(AppConstant.birthDateFormatter));
         family.addChild(child);
         familyDao.saveFamily(family);
         return family;
     }
 
     public Family adoptChild(Family family, Human child) {
+        if (family.countFamily() >= FAMILY_SIZE_LIMIT) {
+            throw new FamilyOverflowException("Reached the maximum number of family members! Cannot adopt more members.");
+        }
         family.addChild(child);
         familyDao.saveFamily(family);
         return family;
