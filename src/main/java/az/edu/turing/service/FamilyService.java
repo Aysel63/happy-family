@@ -111,7 +111,6 @@ public class FamilyService {
 
             familyDao.saveFamily(family);
         });
-
     }
 
     public int count() {
@@ -148,8 +147,8 @@ public class FamilyService {
             System.out.println("Data saved to file successfully.");
         } catch (IOException e) {
             System.out.println("Failed to save data.");
+            Logger.error("Failed to save data.");
         }
-
     }
 
     public void loadDataFromFile() {
@@ -158,8 +157,7 @@ public class FamilyService {
             System.out.println("Data loaded from file successfully.");
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Failed to load data.");
+            Logger.error("Failed to load data.");
         }
-
     }
-
 }

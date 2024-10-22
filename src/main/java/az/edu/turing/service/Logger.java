@@ -12,18 +12,18 @@ public class Logger {
     private static final String LOGGER_FILE_PATH = RESOURCE_PATH.concat("applicationLog.txt");
 
     public static void info(String message) {
-        String log = LocalDateTime.now().format(AppConstant.LOG_FORMATTER).concat("DEBUG " + message);
+        String log = LocalDateTime.now().format(AppConstant.LOG_FORMATTER).concat(" DEBUG " + message);
         saveToFile(log);
     }
 
     public static void error(String message) {
-        String log = LocalDateTime.now().format(AppConstant.LOG_FORMATTER).concat("ERROR " + message);
+        String log = LocalDateTime.now().format(AppConstant.LOG_FORMATTER).concat(" ERROR " + message);
         saveToFile(log);
     }
 
     private static void saveToFile(String log) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(LOGGER_FILE_PATH, true))) {
-            bw.write(log);
+            bw.write(log + "\n");
         } catch (Exception e) {
             e.printStackTrace();
         }

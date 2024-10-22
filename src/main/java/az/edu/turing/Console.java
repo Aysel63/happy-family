@@ -31,8 +31,8 @@ public class Console {
                 case "exit":
                     return;
                 case "1":
-                    fillWithData();
-//                    familyController.loadDataFromFile();
+//                    fillWithData();
+                    familyController.loadDataFromFile();
                     break;
                 case "2":
                     familyController.displayAllFamilies();

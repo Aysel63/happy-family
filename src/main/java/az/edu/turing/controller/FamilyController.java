@@ -1,10 +1,9 @@
 package az.edu.turing.controller;
 
-import az.edu.turing.exception.FamilyOverflowException;
-import az.edu.turing.service.FamilyService;
 import az.edu.turing.entity.Family;
 import az.edu.turing.entity.Human;
 import az.edu.turing.entity.Pet;
+import az.edu.turing.service.FamilyService;
 
 import java.util.List;
 import java.util.Set;
@@ -12,7 +11,6 @@ import java.util.Set;
 public class FamilyController {
 
     private final FamilyService familyService;
-
 
     public FamilyController(FamilyService familyService) {
         this.familyService = familyService;
