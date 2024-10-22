@@ -140,9 +140,9 @@ public class Family implements HumanCreator , Serializable {
         int averageIq = (mother.getIq() + father.getIq()) / 2;
         Human child;
         if (isBoy) {
-            child = new Man(name, father.getName(), LocalDate.now().format(AppConstant.birthDateFormatter), averageIq, null, this);
+            child = new Man(name, father.getName(), LocalDate.now().format(AppConstant.BIRTH_DATE_FORMATTER), averageIq, null, this);
         } else {
-            child = new Woman(name, father.getName(), LocalDate.now().format(AppConstant.birthDateFormatter), averageIq, null, this);
+            child = new Woman(name, father.getName(), LocalDate.now().format(AppConstant.BIRTH_DATE_FORMATTER), averageIq, null, this);
         }
 
         addChild(child);

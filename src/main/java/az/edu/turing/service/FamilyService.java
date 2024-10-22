@@ -84,8 +84,8 @@ public class FamilyService {
         boolean isBoy = Math.random() < 0.5;
         String childName = isBoy ? masculineName : feminineName;
         Human child = isBoy
-                ? new Man(childName, family.getFather().getSurname(), LocalDate.now().format(AppConstant.birthDateFormatter))
-                : new Woman(childName, family.getFather().getSurname(), LocalDate.now().format(AppConstant.birthDateFormatter));
+                ? new Man(childName, family.getFather().getSurname(), LocalDate.now().format(AppConstant.BIRTH_DATE_FORMATTER))
+                : new Woman(childName, family.getFather().getSurname(), LocalDate.now().format(AppConstant.BIRTH_DATE_FORMATTER));
         family.addChild(child);
         familyDao.saveFamily(family);
         return family;
@@ -111,7 +111,6 @@ public class FamilyService {
 
             familyDao.saveFamily(family);
         });
-
     }
 
     public int count() {
@@ -148,8 +147,8 @@ public class FamilyService {
             System.out.println("Data saved to file successfully.");
         } catch (IOException e) {
             System.out.println("Failed to save data.");
+            Logger.error("Failed to save data.");
         }
-
     }
 
     public void loadDataFromFile() {
@@ -158,8 +157,7 @@ public class FamilyService {
             System.out.println("Data loaded from file successfully.");
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Failed to load data.");
+            Logger.error("Failed to load data.");
         }
-
     }
-
 }

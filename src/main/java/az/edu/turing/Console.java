@@ -23,30 +23,31 @@ public class Console {
     }
 
     public void start() {
+        displayCommandList();
         while (true) {
-            displayCommandList();
             System.out.print("Enter a command: ");
             String command = sc.nextLine();
             switch (command) {
                 case "exit":
                     return;
                 case "1":
-                   fillWithData();
+//                    fillWithData();
                     familyController.loadDataFromFile();
                     break;
                 case "2":
                     familyController.displayAllFamilies();
                     break;
                 case "3":
-                    familyController.getFamiliesBiggerThan(getValidNumber("Enter number: ")).forEach(family
-                            -> System.out.println(family.prettyFormat()));
+                    familyController.getFamiliesBiggerThan(getValidNumber("Enter number: "))
+                            .forEach(family -> System.out.println(family.prettyFormat()));
                     break;
                 case "4":
-                    familyController.getFamiliesLessThan(getValidNumber("Enter number: ")).forEach(family
-                            -> System.out.println(family.prettyFormat()));
+                    familyController.getFamiliesLessThan(getValidNumber("Enter number: "))
+                            .forEach(family -> System.out.println(family.prettyFormat()));
                     break;
                 case "5":
-                    System.out.println(familyController.countFamiliesWithMemberNumber(getValidNumber("Enter number: ")).size());
+                    System.out.println(familyController
+                            .countFamiliesWithMemberNumber(getValidNumber("Enter number: ")).size());
                     break;
                 case "6":
                     createNewFamily();
@@ -58,8 +59,9 @@ public class Console {
                     editFamilyByIndex();
                     break;
                 case "9":
-                    familyController.getAllFamilies().forEach(family -> familyController.deleteAllChildrenOlderThen
-                            (getValidNumber("Enter the age:")));
+                    familyController.getAllFamilies()
+                            .forEach(family -> familyController
+                                    .deleteAllChildrenOlderThen(getValidNumber("Enter the age:")));
                     break;
                 case "10":
                     familyController.saveDataToFile();
@@ -101,7 +103,6 @@ public class Console {
         }
     }
 
-
     private void adoptBaby() {
         int familyId = getFamilyId();
         System.out.println("Enter the full name of the child: ");
@@ -114,7 +115,6 @@ public class Console {
         Human adoptedChild = new Human(name, lastName, birthDate, iq);
         familyController.adoptChild(familyController.getFamilyById(familyId), adoptedChild);
     }
-
 
     private void birthBaby() {
         int familyId = getFamilyId();
@@ -198,7 +198,7 @@ public class Console {
                     System.out.println("Enter valid birth date.");
                     continue;
                 }
-                memberBirthDate = date.format(AppConstant.birthDateFormatter);
+                memberBirthDate = date.format(AppConstant.BIRTH_DATE_FORMATTER);
                 break;
             } catch (Exception e) {
                 System.out.println("Invalid birth date. Try again.");
@@ -228,7 +228,7 @@ public class Console {
 
     private void displayCommandList() {
         System.out.println("Choose a command:\n" +
-                "1. Fill with test data\n" +
+                "1. Load data\n" +
                 "2. Display the entire list of families\n" +
                 "3. Display families bigger than a specified number\n" +
                 "4. Display families less than a specified number\n" +
@@ -237,6 +237,7 @@ public class Console {
                 "7. Delete a family by index\n" +
                 "8. Edit a family by index\n" +
                 "9. Remove all children over the age of majority\n" +
-                "Exit");
+                "10. Save data\n" +
+                "'exit' to exit");
     }
 }

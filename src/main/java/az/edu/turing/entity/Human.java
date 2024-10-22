@@ -40,7 +40,7 @@ public class Human implements Serializable {
     }
 
     private long parseBirthDate(String birthDate) {
-        LocalDate localDate = LocalDate.parse(birthDate, AppConstant.birthDateFormatter);
+        LocalDate localDate = LocalDate.parse(birthDate, AppConstant.BIRTH_DATE_FORMATTER);
         return localDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
     }
 
