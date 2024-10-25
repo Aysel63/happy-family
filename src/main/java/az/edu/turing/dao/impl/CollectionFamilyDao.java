@@ -9,6 +9,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +18,8 @@ public class CollectionFamilyDao implements FamilyDao {
 
     private List<Family> families;
 
-    private static final String RESOURCE_PATH = "C:\\Users\\Support\\Documents\\Java\\Turing\\happy-family\\src\\main\\java\\resource\\";
-    private static final String FAMILIES_FILE_PATH = RESOURCE_PATH.concat("families.txt");
+    private static final Path RESOURCE_PATH = Paths.get("src/main/java/resource/");
+    private static final Path FAMILIES_FILE_PATH = RESOURCE_PATH.resolve("families.txt");
 
     public CollectionFamilyDao() {
         this.families = new ArrayList<>();
@@ -44,13 +46,13 @@ public class CollectionFamilyDao implements FamilyDao {
             return false;
         }
         families.remove(index);
-        Logger.info("removing a family by index" + index);
+        Logger.info("deleting a family" + index);
         return true;
     }
 
     @Override
     public boolean deleteFamily(Family family) {
-        Logger.info("removing a family by object");
+        Logger.info("deleting a family");
         return families.remove(family);
     }
 
@@ -59,7 +61,7 @@ public class CollectionFamilyDao implements FamilyDao {
         int index = families.indexOf(family);
         if (index != -1) {
             families.set(index, family);
-            Logger.info("updated family");
+            Logger.info("updating family");
         } else {
             families.add(family);
             Logger.info("saving family");
@@ -68,17 +70,19 @@ public class CollectionFamilyDao implements FamilyDao {
 
     @Override
     public void saveDataToFile() throws IOException {
-        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(FAMILIES_FILE_PATH))) {
+        try (ObjectOutputStream objectOutputStream =
+                     new ObjectOutputStream(new FileOutputStream(FAMILIES_FILE_PATH.toString()))) {
             objectOutputStream.writeObject(families);
         }
-        Logger.info("saved all families to file");
+        Logger.info("saving all families to file");
     }
 
     @Override
     public void loadDataFromFile() throws IOException, ClassNotFoundException {
-        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(FAMILIES_FILE_PATH))) {
+        try (ObjectInputStream objectInputStream =
+                     new ObjectInputStream(new FileInputStream(FAMILIES_FILE_PATH.toString()))) {
             families = (List<Family>) objectInputStream.readObject();
         }
-        Logger.info("loaded all families from file");
+        Logger.info("loading all families from file");
     }
 }
