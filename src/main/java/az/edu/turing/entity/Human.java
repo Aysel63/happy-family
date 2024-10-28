@@ -150,9 +150,8 @@ public class Human implements Serializable {
     }
 
     public String formatBirthDate() {
-        LocalDate birthDate = LocalDate.ofEpochDay(birthDateMillis / (1000 * 60 * 60 * 24));
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        return birthDate.format(formatter);
+        LocalDate birthDate = Instant.ofEpochMilli(birthDateMillis).atZone(ZoneId.systemDefault()).toLocalDate();
+        return birthDate.format(AppConstant.BIRTH_DATE_FORMATTER);
     }
 
     public String prettyFormat() {
