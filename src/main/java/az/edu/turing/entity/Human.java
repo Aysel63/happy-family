@@ -21,6 +21,8 @@ public class Human implements Serializable {
     private Map<String, String> schedule;
     private Family family;
 
+    public Human(){}
+
     public Human(String name, String surname, String birthDate) {
         this.name = name;
         this.surname = surname;
@@ -39,7 +41,7 @@ public class Human implements Serializable {
         this.family = family;
     }
 
-    private long parseBirthDate(String birthDate) {
+    public long parseBirthDate(String birthDate) {
         LocalDate localDate = LocalDate.parse(birthDate, AppConstant.BIRTH_DATE_FORMATTER);
         return localDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
     }
@@ -147,7 +149,7 @@ public class Human implements Serializable {
                 '}';
     }
 
-    private String formatBirthDate() {
+    public String formatBirthDate() {
         LocalDate birthDate = LocalDate.ofEpochDay(birthDateMillis / (1000 * 60 * 60 * 24));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return birthDate.format(formatter);
